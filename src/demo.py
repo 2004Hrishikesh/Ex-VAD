@@ -3,7 +3,7 @@ import os
 import json
 from tqdm import tqdm
 import matplotlib.pyplot as plt
-from models.exvad_model import ExVADModel
+from models.enhanced_exvad_model import EnhancedExVADModel
 from utils.video_utils import sample_frames
 
 def run_demo(model_path="models_saved/best_model.pth", data_root="data"):
@@ -23,10 +23,10 @@ def run_demo(model_path="models_saved/best_model.pth", data_root="data"):
     
     # Load model
     print("\nLoading model...")
-    model = ExVADModel(device)
+    model = EnhancedExVADModel(device)
     if os.path.exists(model_path):
         model_state_dict = torch.load(model_path, map_location=device)
-        model.load_state_dict(model_state_dict)
+        model.load_state_dict(model_state_dict, strict=False)  # Allow missing keys
         print(f"✅ Model loaded successfully!")
     else:
         print("❌ No trained model found. Please train first.")
