@@ -2,8 +2,11 @@
 import torch
 import torch.nn as nn
 from transformers import BlipProcessor, BlipForConditionalGeneration
+import numpy as np
+from PIL import Image
 import warnings
 warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore', category=FutureWarning, module='transformers')
 
 class SimpleAEGM(nn.Module):
     def __init__(self, device='cuda'):
@@ -26,40 +29,61 @@ class SimpleAEGM(nn.Module):
         print("✅ BLIP model loaded successfully!")
     
     def generate_captions(self, frames):
-        """Generate captions with proper padding"""
+        """Generate captions with proper padding and memory optimization"""
         captions = []
         
         with torch.no_grad():
-            # Process first 3 frames for efficiency
-            for i, frame in enumerate(frames[:3]):
+            # Process only first frame for efficiency (reduce memory usage)
+            for i, frame in enumerate(frames[:1]):  # Only process first frame
                 try:
-                    # Use padding=True and specify pad_token_id
+                    # Ensure frame is PIL Image
+                    if not hasattr(frame, 'mode'):
+                        if torch.is_tensor(frame):
+                            frame_array = frame.cpu().numpy()
+                            if frame_array.dtype != np.uint8:
+                                frame_array = (frame_array * 255).astype(np.uint8)
+                        else:
+                            frame_array = frame
+                        
+                        if isinstance(frame_array, np.ndarray):
+                            frame = Image.fromarray(frame_array)
+                        else:
+                            frame = Image.fromarray(np.zeros((224, 224, 3), dtype=np.uint8))
+                    
+                    if frame.mode != 'RGB':
+                        frame = frame.convert('RGB')
+                    
+                    # Use simpler processing to avoid conflicts
                     inputs = self.processor(
                         images=frame, 
-                        return_tensors="pt", 
-                        padding=True,
-                        truncation=True,
-                        max_length=512
+                        return_tensors="pt"
                     )
                     
                     # Move inputs to device
                     inputs = {k: v.to(self.device) for k, v in inputs.items()}
                     
-                    # Generate with consistent dtype and padding
+                    # Generate with minimal settings to avoid parameter conflicts
                     generated_ids = self.model.generate(
                         **inputs,
-                        max_length=50,
-                        num_beams=3,
-                        early_stopping=True,
-                        do_sample=False
+                        max_length=25,
+                        num_beams=1,  # Use greedy decoding instead of beam search
+                        do_sample=False,
+                        early_stopping=True
                     )
                     
                     caption = self.processor.decode(generated_ids[0], skip_special_tokens=True)
                     captions.append(caption)
                     
+                    # Clear GPU cache after each generation
+                    if self.device.type == 'cuda':
+                        torch.cuda.empty_cache()
+                    
                 except Exception as e:
                     print(f"Error generating caption for frame {i}: {e}")
                     captions.append("a video frame")
+                    # Clear cache on error too
+                    if self.device.type == 'cuda':
+                        torch.cuda.empty_cache()
         
         return captions if captions else ["a video frame"]
     
