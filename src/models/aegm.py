@@ -26,7 +26,7 @@ class SimpleAEGM(nn.Module):
             self.processor.tokenizer.pad_token = self.processor.tokenizer.eos_token
         
         self.model.eval()
-        print("✅ BLIP model loaded successfully!")
+        print("[OK] BLIP model loaded successfully!")
     
     def generate_captions(self, frames):
         """Generate captions with proper padding and memory optimization"""
@@ -36,20 +36,29 @@ class SimpleAEGM(nn.Module):
             # Process only first frame for efficiency (reduce memory usage)
             for i, frame in enumerate(frames[:1]):  # Only process first frame
                 try:
-                    # Ensure frame is PIL Image
-                    if not hasattr(frame, 'mode'):
-                        if torch.is_tensor(frame):
-                            frame_array = frame.cpu().numpy()
-                            if frame_array.dtype != np.uint8:
-                                frame_array = (frame_array * 255).astype(np.uint8)
-                        else:
-                            frame_array = frame
-                        
-                        if isinstance(frame_array, np.ndarray):
-                            frame = Image.fromarray(frame_array)
-                        else:
-                            frame = Image.fromarray(np.zeros((224, 224, 3), dtype=np.uint8))
+                    # Convert to PIL Image if needed
+                    if torch.is_tensor(frame):
+                        # Handle tensor: (C, H, W) format
+                        frame_np = frame.cpu().numpy()
+                        # Transpose from (C, H, W) to (H, W, C)
+                        if frame_np.shape[0] == 3:  # Channel first
+                            frame_np = np.transpose(frame_np, (1, 2, 0))
+                        # Convert to uint8
+                        if frame_np.dtype != np.uint8:
+                            frame_np = (frame_np * 255).clip(0, 255).astype(np.uint8)
+                        frame = Image.fromarray(frame_np)
+                    elif isinstance(frame, np.ndarray):
+                        # Handle numpy array
+                        if frame.shape[0] == 3:  # Channel first
+                            frame = np.transpose(frame, (1, 2, 0))
+                        if frame.dtype != np.uint8:
+                            frame = (frame * 255).clip(0, 255).astype(np.uint8)
+                        frame = Image.fromarray(frame)
+                    elif not isinstance(frame, Image.Image):
+                        # Fallback: create blank image
+                        frame = Image.fromarray(np.zeros((224, 224, 3), dtype=np.uint8))
                     
+                    # Ensure RGB mode
                     if frame.mode != 'RGB':
                         frame = frame.convert('RGB')
                     
@@ -105,4 +114,4 @@ class SimpleAEGM(nn.Module):
         explanation = self.generate_explanation(captions)
         return explanation, captions
 
-print("✅ Fixed AEGM model created!")
+print("[OK] Fixed AEGM model created!")

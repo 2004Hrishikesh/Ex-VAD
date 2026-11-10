@@ -47,3 +47,11 @@ outputs/
 # Logs and databases
 *.log
 *.sqlite
+
+# Local only
+.claude/
+paper/
+src/demo_new.py
+_to_delete/
+ExVAD_CMAF_upload.zip
+*.zip

@@ -7,6 +7,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModel
+import numpy as np
+from PIL import Image
 import warnings
 warnings.filterwarnings('ignore')
 warnings.filterwarnings('ignore', category=FutureWarning, module='transformers')
@@ -131,12 +133,13 @@ class CrossModalAttentionFusion(nn.Module):
         """
         batch_size = visual_features.size(0)
         
-        # Ensure visual features are in float32 for compatibility
-        visual_features = visual_features.float()
+        # Align inputs with projection dtype for mixed-precision checkpoints.
+        proj_dtype = next(self.visual_projection[0].parameters()).dtype
+        visual_features = visual_features.to(dtype=proj_dtype)
         
         # Encode text explanations
         text_embeddings = self.encode_text(explanations, device)  # [batch_size, text_dim]
-        text_embeddings = text_embeddings.float()  # Ensure float32
+        text_embeddings = text_embeddings.to(dtype=proj_dtype)
         
         # Project to hidden space
         visual_proj = self.visual_projection(visual_features)  # [batch_size, hidden_dim]
@@ -213,33 +216,40 @@ class EnhancedMADM(nn.Module):
             nn.LayerNorm(128),
             nn.ReLU(),
             nn.Dropout(0.1),
-            nn.Linear(128, 1)
+            nn.Linear(128, 1),
+            nn.Sigmoid()  # Add sigmoid to output probability [0, 1]
         ).to(device)
         
         print("✅ Enhanced MADM with Cross-Modal Attention loaded!")
     
-    def extract_visual_features(self, frames):
-        """Extract CLIP features from frames (same as original)"""
+    def extract_visual_features(self, frames, return_per_frame=False):
+        """Extract CLIP features from frames (same as original)."""
         features_list = []
         
         with torch.no_grad():
             for frame in frames:
                 try:
-                    # Ensure frame is PIL Image
-                    if not hasattr(frame, 'mode'):
-                        if torch.is_tensor(frame):
-                            frame_array = frame.cpu().numpy()
-                        else:
-                            frame_array = frame
-                        
-                        import numpy as np
-                        from PIL import Image
-                        if isinstance(frame_array, np.ndarray):
-                            if frame_array.dtype != np.uint8:
-                                frame_array = (frame_array * 255).astype(np.uint8)
-                            frame = Image.fromarray(frame_array)
-                        else:
-                            frame = Image.fromarray(np.zeros((224, 224, 3), dtype=np.uint8))
+                    # Convert to PIL Image if needed
+                    if torch.is_tensor(frame):
+                        # Handle tensor: (C, H, W) format
+                        frame_np = frame.cpu().numpy()
+                        # Transpose from (C, H, W) to (H, W, C)
+                        if frame_np.shape[0] == 3:  # Channel first
+                            frame_np = np.transpose(frame_np, (1, 2, 0))
+                        # Convert to uint8
+                        if frame_np.dtype != np.uint8:
+                            frame_np = (frame_np * 255).clip(0, 255).astype(np.uint8)
+                        frame = Image.fromarray(frame_np)
+                    elif isinstance(frame, np.ndarray):
+                        # Handle numpy array
+                        if frame.shape[0] == 3:  # Channel first
+                            frame = np.transpose(frame, (1, 2, 0))
+                        if frame.dtype != np.uint8:
+                            frame = (frame * 255).clip(0, 255).astype(np.uint8)
+                        frame = Image.fromarray(frame)
+                    elif not isinstance(frame, Image.Image):
+                        # Fallback: create blank image
+                        frame = Image.fromarray(np.zeros((224, 224, 3), dtype=np.uint8))
                     
                     if frame.mode != 'RGB':
                         frame = frame.convert('RGB')
@@ -256,11 +266,33 @@ class EnhancedMADM(nn.Module):
                     features_list.append(dummy_features)
         
         if features_list:
-            video_features = torch.stack(features_list, dim=1).mean(dim=1)
+            per_frame_features = torch.cat(features_list, dim=0).unsqueeze(0)  # (1, T, 512)
+            video_features = per_frame_features.mean(dim=1)  # (1, 512)
         else:
             video_features = torch.zeros(1, 512).to(self.device)
-        
+            per_frame_features = torch.zeros(1, 1, 512).to(self.device)
+
+        if return_per_frame:
+            return video_features, per_frame_features
         return video_features
+
+    def predict_from_visual_features(self, visual_features, explanations=None):
+        """Predict anomaly score from precomputed visual features."""
+        target_dtype = next(self.anomaly_head.parameters()).dtype
+
+        if explanations is not None:
+            cmaf_dtype = next(self.cmaf.visual_projection[0].parameters()).dtype
+            enhanced_features = self.cmaf(
+                visual_features.to(dtype=cmaf_dtype),
+                explanations,
+                self.device,
+            )
+        else:
+            enhanced_features = visual_features.to(dtype=target_dtype)
+
+        enhanced_features = enhanced_features.to(dtype=target_dtype)
+        anomaly_score = self.anomaly_head(enhanced_features)
+        return anomaly_score
     
     def forward(self, frames, explanations=None):
         """
@@ -271,21 +303,5 @@ class EnhancedMADM(nn.Module):
         Returns:
             anomaly_score: Predicted anomaly score
         """
-        # Extract visual features
         visual_features = self.extract_visual_features(frames)
-        original_dtype = visual_features.dtype
-        
-        # Apply cross-modal attention fusion if explanations are provided
-        if explanations is not None:
-            enhanced_features = self.cmaf(visual_features, explanations, self.device)
-        else:
-            enhanced_features = visual_features
-        
-        # Ensure consistent dtype with anomaly head parameters
-        target_dtype = next(self.anomaly_head.parameters()).dtype
-        enhanced_features = enhanced_features.to(dtype=target_dtype)
-        
-        # Predict anomaly score
-        anomaly_score = self.anomaly_head(enhanced_features)
-        
-        return anomaly_score
+        return self.predict_from_visual_features(visual_features, explanations=explanations)

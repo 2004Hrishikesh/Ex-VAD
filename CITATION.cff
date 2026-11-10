@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper below."
+title: "Explainable Video Anomaly Detection with Cross-Modal Attention Fusion"
+authors:
+  - family-names: Muniraju
+    given-names: Hrishikesh
+  - family-names: "Raj S"
+    given-names: Sridhar
+repository-code: "https://github.com/2004Hrishikesh/Ex-VAD"
+preferred-citation:
+  type: conference-paper
+  title: "Enhancing Explainable Video Anomaly Detection using Cross-Modal Attention Fusion Mechanism"
+  authors:
+    - family-names: Muniraju
+      given-names: Hrishikesh
+    - family-names: "Raj S"
+      given-names: Sridhar
+  collection-title: "2025 International Conference on Signal Processing, Computation, Electronics, Power and Telecommunication (IConSCEPT)"
+  publisher:
+    name: IEEE
+  year: 2025
+  url: "https://ieeexplore.ieee.org/document/11436826"

@@ -146,7 +146,8 @@ def train_epoch_enhanced(model, train_loader, criterion, optimizer, device, use_
             total_cmaf_loss += cmaf_loss.item() if isinstance(cmaf_loss, torch.Tensor) else cmaf_loss
             
             with torch.no_grad():
-                predicted = (torch.sigmoid(anomaly_score) > 0.5).float()
+                # anomaly_score is already sigmoid output (0-1), no need to apply sigmoid again
+                predicted = (anomaly_score > 0.5).float()
                 correct += (predicted == target).sum().item()
                 total += target.size(0)
             
@@ -221,7 +222,8 @@ def validate_epoch_enhanced(model, test_loader, criterion, device, save_path=Non
                 
                 # Store predictions and labels
                 total_loss += loss.item()
-                score = torch.sigmoid(anomaly_score).cpu().item()
+                # anomaly_score is already sigmoid output (0-1), no need to apply sigmoid again
+                score = anomaly_score.cpu().item()
                 all_scores.append(score)
                 all_labels.append(label.cpu().item())
                 
@@ -332,14 +334,30 @@ def train_enhanced_model(data_root="../data", epochs=3, learning_rate=5e-4, save
     # Create data loaders with smaller batch processing
     print("Loading datasets...")
     train_loader, test_loader = create_dataloaders(
-        data_root='data',
+        data_root='../data',
         batch_size=1,
         num_frames=8,  # Reduced from 16 for memory efficiency
         device=device
     )
     
-    # Setup training with more conservative settings
-    criterion = nn.BCEWithLogitsLoss()
+    # Calculate class weights for imbalanced dataset
+    print("\nCalculating class distribution...")
+    normal_count = sum(1 for _, labels, _, _ in train_loader if labels[0].item() == 0)
+    anomaly_count = sum(1 for _, labels, _, _ in train_loader if labels[0].item() == 1)
+    total_samples = normal_count + anomaly_count
+    
+    print(f"Training set: Normal={normal_count}, Anomaly={anomaly_count}")
+    print(f"Imbalance ratio: {anomaly_count/normal_count:.2f}:1")
+    
+    # pos_weight for BCEWithLogitsLoss: weight for positive (anomaly) class
+    # Since we have more anomalies, we need to upweight normals
+    # pos_weight applies to the positive class (anomaly=1), but we want to balance
+    # So if we have 10x more anomalies, pos_weight should be 0.1 to reduce their importance
+    pos_weight = torch.tensor([normal_count / anomaly_count], device=device)
+    print(f"Using pos_weight={pos_weight.item():.3f} for class balancing")
+    
+    # Setup training with class-weighted loss
+    criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.5)  # More aggressive LR decay
     
@@ -372,11 +390,61 @@ def train_enhanced_model(data_root="../data", epochs=3, learning_rate=5e-4, save
               f"CMAF Loss: {train_cmaf_loss:.4f}, Acc: {train_acc:.4f}")
         print(f"Val   - Loss: {val_loss:.4f}, Acc: {val_acc:.4f}")
         
-        # Save best model
+        # Save best model with proper error handling and verification
         if val_acc > best_accuracy:
             best_accuracy = val_acc
-            torch.save(model.state_dict(), os.path.join(save_path, 'enhanced_best_model.pth'))
-            print(f"✅ New best enhanced model saved! Accuracy: {best_accuracy:.4f}")
+            
+            # Use absolute path and save as best_model.pth (replacing old model)
+            model_save_path = os.path.abspath(os.path.join(save_path, 'best_model.pth'))
+            
+            try:
+                # Create comprehensive checkpoint with all necessary information
+                checkpoint = {
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'scheduler_state_dict': scheduler.state_dict(),
+                    'epoch': epoch + 1,
+                    'best_accuracy': best_accuracy,
+                    'train_accuracy': train_acc,
+                    'val_accuracy': val_acc,
+                    'train_loss': train_total_loss,
+                    'val_loss': val_loss,
+                    'train_bce_loss': train_bce_loss,
+                    'train_cmaf_loss': train_cmaf_loss,
+                    'threshold': 0.1,
+                    'use_cross_modal_attention': use_cross_modal_attention,
+                    'use_cmaf_loss': use_cmaf_loss,
+                    'architecture': 'Enhanced ExVAD with CMAF'
+                }
+                
+                # Ensure directory exists
+                os.makedirs(os.path.dirname(model_save_path), exist_ok=True)
+                
+                # Save checkpoint
+                torch.save(checkpoint, model_save_path)
+                
+                # Verify file was created and check size
+                if os.path.exists(model_save_path):
+                    file_size_mb = os.path.getsize(model_save_path) / (1024**2)
+                    print(f"✅ New best CMAF model saved successfully!")
+                    print(f"   📁 Path: {model_save_path}")
+                    print(f"   📦 Size: {file_size_mb:.2f} MB")
+                    print(f"   🎯 Accuracy: {best_accuracy:.4f}")
+                    print(f"   ⚡ Architecture: Enhanced ExVAD with CMAF")
+                else:
+                    print(f"❌ ERROR: Model file not created at {model_save_path}")
+                    
+            except Exception as e:
+                print(f"❌ ERROR saving model: {e}")
+                import traceback
+                traceback.print_exc()
+                # Try fallback save with just state dict
+                try:
+                    fallback_path = os.path.join(save_path, 'best_model_fallback.pth')
+                    torch.save(model.state_dict(), fallback_path)
+                    print(f"⚠️  Fallback save succeeded: {fallback_path}")
+                except Exception as e2:
+                    print(f"❌ Fallback save also failed: {e2}")
         
         # GPU memory info
         if device.type == 'cuda':
@@ -433,7 +501,7 @@ if __name__ == "__main__":
         # Train enhanced model with cross-modal attention
         model, history, threshold_info = train_enhanced_model(
             data_root="../data",
-            epochs=3,           # Reduced epochs for initial testing
+            epochs=5,           # 5 epochs as requested
             learning_rate=5e-4, # Lower learning rate for stability
             save_path="../models_saved",
             use_cross_modal_attention=True,
@@ -448,6 +516,27 @@ if __name__ == "__main__":
         print("3. ✅ Cross-modal attention regularization loss")
         print("4. ✅ Comprehensive attention analysis")
         print("="*80)
+        
+        # Run verification after training
+        print("\n" + "="*80)
+        print("Running CMAF Training Verification...")
+        print("="*80)
+        
+        import subprocess
+        try:
+            result = subprocess.run(
+                ['python', '../verify_cmaf_training.py'],
+                capture_output=False,
+                text=True,
+                cwd='src'
+            )
+            if result.returncode == 0:
+                print("\n✅ Verification PASSED!")
+            else:
+                print("\n⚠️  Verification completed with issues. Check output above.")
+        except Exception as e:
+            print(f"\n⚠️  Could not run verification: {e}")
+            print("   You can manually run: python verify_cmaf_training.py")
         
     else:
         print("❌ GPU setup failed. Please fix GPU issues before training.")

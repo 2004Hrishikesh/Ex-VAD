@@ -59,7 +59,28 @@ def frames_to_tensor(frames, device='cuda'):
         # Resize to 224x224 if needed
         if frame.size != (224, 224):
             frame = frame.resize((224, 224))
-        frame_array = np.array(frame).astype(np.float32) / 255.0
+        
+        # Convert to RGB if grayscale (must be before conversion to numpy!)
+        if frame.mode != 'RGB':
+            frame = frame.convert('RGB')
+        
+        # Now convert to numpy - should be (224, 224, 3)
+        frame_array = np.array(frame)
+        
+        # Double-check shape before normalization
+        if len(frame_array.shape) == 2:
+            # Still grayscale somehow, convert to RGB by repeating channels
+            frame_array = np.stack([frame_array] * 3, axis=-1)
+        elif len(frame_array.shape) == 3 and frame_array.shape[2] == 1:
+            # Single channel image (H, W, 1)
+            frame_array = np.repeat(frame_array, 3, axis=2)
+        elif len(frame_array.shape) == 3 and frame_array.shape[2] == 4:
+            # RGBA image, remove alpha channel
+            frame_array = frame_array[:, :, :3]
+        
+        # Now normalize to [0, 1]
+        frame_array = frame_array.astype(np.float32) / 255.0
+        
         frame_arrays.append(frame_array)
     
     # Stack and convert to tensor

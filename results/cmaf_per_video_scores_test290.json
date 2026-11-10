@@ -1,0 +1,2043 @@
+{
+ "note": "Per-video scores on the UCF-Crime test split (290 videos). Thresholds: baseline 0.5, CMAF tuned.",
+ "thresholds": {
+  "exvad": 0.5,
+  "cmaf": 0.1489795918367347
+ },
+ "checkpoints": {
+  "exvad": "models_saved/baseline_best_model.pth",
+  "cmaf": "models_saved/best_model.pth"
+ },
+ "samples": [
+  {
+   "id": "Abuse028_x264",
+   "category": "Abuse",
+   "label": 1,
+   "score_baseline": 0.88778,
+   "score_cmaf": 0.85802
+  },
+  {
+   "id": "Abuse030_x264",
+   "category": "Abuse",
+   "label": 1,
+   "score_baseline": 0.9422,
+   "score_cmaf": 0.76419
+  },
+  {
+   "id": "Arrest001_x264",
+   "category": "Arrest",
+   "label": 1,
+   "score_baseline": 0.30269,
+   "score_cmaf": 0.16782
+  },
+  {
+   "id": "Arrest007_x264",
+   "category": "Arrest",
+   "label": 1,
+   "score_baseline": 0.83899,
+   "score_cmaf": 0.82813
+  },
+  {
+   "id": "Arrest024_x264",
+   "category": "Arrest",
+   "label": 1,
+   "score_baseline": 0.98931,
+   "score_cmaf": 0.91262
+  },
+  {
+   "id": "Arrest030_x264",
+   "category": "Arrest",
+   "label": 1,
+   "score_baseline": 0.98915,
+   "score_cmaf": 0.90255
+  },
+  {
+   "id": "Arrest039_x264",
+   "category": "Arrest",
+   "label": 1,
+   "score_baseline": 0.08105,
+   "score_cmaf": 0.08069
+  },
+  {
+   "id": "Arson007_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.99468,
+   "score_cmaf": 0.89864
+  },
+  {
+   "id": "Arson009_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.99955,
+   "score_cmaf": 0.90941
+  },
+  {
+   "id": "Arson010_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.98731,
+   "score_cmaf": 0.90533
+  },
+  {
+   "id": "Arson011_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.97432,
+   "score_cmaf": 0.90834
+  },
+  {
+   "id": "Arson016_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.99839,
+   "score_cmaf": 0.91015
+  },
+  {
+   "id": "Arson018_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.99868,
+   "score_cmaf": 0.91448
+  },
+  {
+   "id": "Arson022_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.95522,
+   "score_cmaf": 0.88857
+  },
+  {
+   "id": "Arson035_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.99286,
+   "score_cmaf": 0.90372
+  },
+  {
+   "id": "Arson041_x264",
+   "category": "Arson",
+   "label": 1,
+   "score_baseline": 0.99847,
+   "score_cmaf": 0.91029
+  },
+  {
+   "id": "Assault006_x264",
+   "category": "Assault",
+   "label": 1,
+   "score_baseline": 0.99316,
+   "score_cmaf": 0.91037
+  },
+  {
+   "id": "Assault010_x264",
+   "category": "Assault",
+   "label": 1,
+   "score_baseline": 0.95537,
+   "score_cmaf": 0.7922
+  },
+  {
+   "id": "Assault011_x264",
+   "category": "Assault",
+   "label": 1,
+   "score_baseline": 0.14319,
+   "score_cmaf": 0.11874
+  },
+  {
+   "id": "Burglary005_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.28199,
+   "score_cmaf": 0.75308
+  },
+  {
+   "id": "Burglary017_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.99441,
+   "score_cmaf": 0.8924
+  },
+  {
+   "id": "Burglary018_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.99479,
+   "score_cmaf": 0.87104
+  },
+  {
+   "id": "Burglary021_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.95376,
+   "score_cmaf": 0.87589
+  },
+  {
+   "id": "Burglary024_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.99839,
+   "score_cmaf": 0.90582
+  },
+  {
+   "id": "Burglary032_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.99842,
+   "score_cmaf": 0.90453
+  },
+  {
+   "id": "Burglary033_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.88641,
+   "score_cmaf": 0.88059
+  },
+  {
+   "id": "Burglary035_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.99842,
+   "score_cmaf": 0.90199
+  },
+  {
+   "id": "Burglary037_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.99641,
+   "score_cmaf": 0.89927
+  },
+  {
+   "id": "Burglary061_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.72881,
+   "score_cmaf": 0.84041
+  },
+  {
+   "id": "Burglary076_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.13724,
+   "score_cmaf": 0.18939
+  },
+  {
+   "id": "Burglary079_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.99952,
+   "score_cmaf": 0.89111
+  },
+  {
+   "id": "Burglary092_x264",
+   "category": "Burglary",
+   "label": 1,
+   "score_baseline": 0.99387,
+   "score_cmaf": 0.88391
+  },
+  {
+   "id": "Explosion002_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.99434,
+   "score_cmaf": 0.85808
+  },
+  {
+   "id": "Explosion004_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.99952,
+   "score_cmaf": 0.91445
+  },
+  {
+   "id": "Explosion007_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.99943,
+   "score_cmaf": 0.91526
+  },
+  {
+   "id": "Explosion008_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.9376,
+   "score_cmaf": 0.90601
+  },
+  {
+   "id": "Explosion010_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.85746,
+   "score_cmaf": 0.8971
+  },
+  {
+   "id": "Explosion011_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.01311,
+   "score_cmaf": 0.0723
+  },
+  {
+   "id": "Explosion013_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.9828,
+   "score_cmaf": 0.91075
+  },
+  {
+   "id": "Explosion016_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.87519,
+   "score_cmaf": 0.90753
+  },
+  {
+   "id": "Explosion017_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.9756,
+   "score_cmaf": 0.83624
+  },
+  {
+   "id": "Explosion020_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.99863,
+   "score_cmaf": 0.89978
+  },
+  {
+   "id": "Explosion021_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.99825,
+   "score_cmaf": 0.91544
+  },
+  {
+   "id": "Explosion022_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.91867,
+   "score_cmaf": 0.84981
+  },
+  {
+   "id": "Explosion025_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.58111,
+   "score_cmaf": 0.85252
+  },
+  {
+   "id": "Explosion027_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.6093,
+   "score_cmaf": 0.87786
+  },
+  {
+   "id": "Explosion028_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.28087,
+   "score_cmaf": 0.1447
+  },
+  {
+   "id": "Explosion029_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.99897,
+   "score_cmaf": 0.90072
+  },
+  {
+   "id": "Explosion033_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.75121,
+   "score_cmaf": 0.90197
+  },
+  {
+   "id": "Explosion035_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.99838,
+   "score_cmaf": 0.90563
+  },
+  {
+   "id": "Explosion036_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.99862,
+   "score_cmaf": 0.90967
+  },
+  {
+   "id": "Explosion039_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.9976,
+   "score_cmaf": 0.91134
+  },
+  {
+   "id": "Explosion043_x264",
+   "category": "Explosion",
+   "label": 1,
+   "score_baseline": 0.92351,
+   "score_cmaf": 0.89359
+  },
+  {
+   "id": "Fighting003_x264",
+   "category": "Fighting",
+   "label": 1,
+   "score_baseline": 0.28099,
+   "score_cmaf": 0.12241
+  },
+  {
+   "id": "Fighting018_x264",
+   "category": "Fighting",
+   "label": 1,
+   "score_baseline": 0.93364,
+   "score_cmaf": 0.86239
+  },
+  {
+   "id": "Fighting033_x264",
+   "category": "Fighting",
+   "label": 1,
+   "score_baseline": 0.35688,
+   "score_cmaf": 0.08161
+  },
+  {
+   "id": "Fighting042_x264",
+   "category": "Fighting",
+   "label": 1,
+   "score_baseline": 0.98892,
+   "score_cmaf": 0.89693
+  },
+  {
+   "id": "Fighting047_x264",
+   "category": "Fighting",
+   "label": 1,
+   "score_baseline": 0.09058,
+   "score_cmaf": 0.08156
+  },
+  {
+   "id": "Normal_Videos_003_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.3112,
+   "score_cmaf": 0.09093
+  },
+  {
+   "id": "Normal_Videos_006_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00691,
+   "score_cmaf": 0.07872
+  },
+  {
+   "id": "Normal_Videos_010_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.97007,
+   "score_cmaf": 0.85461
+  },
+  {
+   "id": "Normal_Videos_014_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.89034,
+   "score_cmaf": 0.9047
+  },
+  {
+   "id": "Normal_Videos_015_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00773,
+   "score_cmaf": 0.06841
+  },
+  {
+   "id": "Normal_Videos_018_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00328,
+   "score_cmaf": 0.06934
+  },
+  {
+   "id": "Normal_Videos_019_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.28966,
+   "score_cmaf": 0.15103
+  },
+  {
+   "id": "Normal_Videos_024_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00128,
+   "score_cmaf": 0.06592
+  },
+  {
+   "id": "Normal_Videos_025_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00288,
+   "score_cmaf": 0.06801
+  },
+  {
+   "id": "Normal_Videos_027_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01229,
+   "score_cmaf": 0.08078
+  },
+  {
+   "id": "Normal_Videos_033_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01358,
+   "score_cmaf": 0.07348
+  },
+  {
+   "id": "Normal_Videos_034_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00337,
+   "score_cmaf": 0.06728
+  },
+  {
+   "id": "Normal_Videos_041_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.03788,
+   "score_cmaf": 0.10594
+  },
+  {
+   "id": "Normal_Videos_042_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00327,
+   "score_cmaf": 0.07113
+  },
+  {
+   "id": "Normal_Videos_048_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00575,
+   "score_cmaf": 0.07041
+  },
+  {
+   "id": "Normal_Videos_050_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01212,
+   "score_cmaf": 0.08657
+  },
+  {
+   "id": "Normal_Videos_051_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02447,
+   "score_cmaf": 0.07542
+  },
+  {
+   "id": "Normal_Videos_056_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02382,
+   "score_cmaf": 0.15249
+  },
+  {
+   "id": "Normal_Videos_059_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.03901,
+   "score_cmaf": 0.08772
+  },
+  {
+   "id": "Normal_Videos_063_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00424,
+   "score_cmaf": 0.07419
+  },
+  {
+   "id": "Normal_Videos_067_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00146,
+   "score_cmaf": 0.06602
+  },
+  {
+   "id": "Normal_Videos_070_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00039,
+   "score_cmaf": 0.06572
+  },
+  {
+   "id": "Normal_Videos_100_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01867,
+   "score_cmaf": 0.07491
+  },
+  {
+   "id": "Normal_Videos_129_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.06619,
+   "score_cmaf": 0.09072
+  },
+  {
+   "id": "Normal_Videos_150_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00723,
+   "score_cmaf": 0.06644
+  },
+  {
+   "id": "Normal_Videos_168_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.12561,
+   "score_cmaf": 0.10524
+  },
+  {
+   "id": "Normal_Videos_175_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.4264,
+   "score_cmaf": 0.21042
+  },
+  {
+   "id": "Normal_Videos_182_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.60159,
+   "score_cmaf": 0.301
+  },
+  {
+   "id": "Normal_Videos_189_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.9642,
+   "score_cmaf": 0.85484
+  },
+  {
+   "id": "Normal_Videos_196_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.33589,
+   "score_cmaf": 0.75961
+  },
+  {
+   "id": "Normal_Videos_203_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01942,
+   "score_cmaf": 0.07037
+  },
+  {
+   "id": "Normal_Videos_210_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.10381,
+   "score_cmaf": 0.07822
+  },
+  {
+   "id": "Normal_Videos_217_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.7978,
+   "score_cmaf": 0.17135
+  },
+  {
+   "id": "Normal_Videos_224_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.2421,
+   "score_cmaf": 0.14893
+  },
+  {
+   "id": "Normal_Videos_246_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00769,
+   "score_cmaf": 0.06743
+  },
+  {
+   "id": "Normal_Videos_247_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01036,
+   "score_cmaf": 0.09892
+  },
+  {
+   "id": "Normal_Videos_248_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02605,
+   "score_cmaf": 0.09406
+  },
+  {
+   "id": "Normal_Videos_251_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.5123,
+   "score_cmaf": 0.80324
+  },
+  {
+   "id": "Normal_Videos_289_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00395,
+   "score_cmaf": 0.07517
+  },
+  {
+   "id": "Normal_Videos_310_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01392,
+   "score_cmaf": 0.06834
+  },
+  {
+   "id": "Normal_Videos_312_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01217,
+   "score_cmaf": 0.07212
+  },
+  {
+   "id": "Normal_Videos_317_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00281,
+   "score_cmaf": 0.06821
+  },
+  {
+   "id": "Normal_Videos_345_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.28516,
+   "score_cmaf": 0.13705
+  },
+  {
+   "id": "Normal_Videos_352_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.06601,
+   "score_cmaf": 0.07299
+  },
+  {
+   "id": "Normal_Videos_360_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.3842,
+   "score_cmaf": 0.80906
+  },
+  {
+   "id": "Normal_Videos_365_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00617,
+   "score_cmaf": 0.06672
+  },
+  {
+   "id": "Normal_Videos_401_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.018,
+   "score_cmaf": 0.07438
+  },
+  {
+   "id": "Normal_Videos_417_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00455,
+   "score_cmaf": 0.06804
+  },
+  {
+   "id": "Normal_Videos_439_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.024,
+   "score_cmaf": 0.07887
+  },
+  {
+   "id": "Normal_Videos_452_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00541,
+   "score_cmaf": 0.06552
+  },
+  {
+   "id": "Normal_Videos_453_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.50466,
+   "score_cmaf": 0.10766
+  },
+  {
+   "id": "Normal_Videos_478_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.98878,
+   "score_cmaf": 0.89609
+  },
+  {
+   "id": "Normal_Videos_576_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02243,
+   "score_cmaf": 0.08872
+  },
+  {
+   "id": "Normal_Videos_597_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00901,
+   "score_cmaf": 0.0812
+  },
+  {
+   "id": "Normal_Videos_603_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00838,
+   "score_cmaf": 0.06887
+  },
+  {
+   "id": "Normal_Videos_606_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00657,
+   "score_cmaf": 0.07395
+  },
+  {
+   "id": "Normal_Videos_621_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.0683,
+   "score_cmaf": 0.06927
+  },
+  {
+   "id": "Normal_Videos_634_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00244,
+   "score_cmaf": 0.07001
+  },
+  {
+   "id": "Normal_Videos_641_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00985,
+   "score_cmaf": 0.06989
+  },
+  {
+   "id": "Normal_Videos_656_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02247,
+   "score_cmaf": 0.07746
+  },
+  {
+   "id": "Normal_Videos_686_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01147,
+   "score_cmaf": 0.07752
+  },
+  {
+   "id": "Normal_Videos_696_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.57297,
+   "score_cmaf": 0.13847
+  },
+  {
+   "id": "Normal_Videos_702_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01507,
+   "score_cmaf": 0.07818
+  },
+  {
+   "id": "Normal_Videos_704_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00797,
+   "score_cmaf": 0.10675
+  },
+  {
+   "id": "Normal_Videos_710_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.04267,
+   "score_cmaf": 0.11962
+  },
+  {
+   "id": "Normal_Videos_717_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.0025,
+   "score_cmaf": 0.06972
+  },
+  {
+   "id": "Normal_Videos_722_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00386,
+   "score_cmaf": 0.07286
+  },
+  {
+   "id": "Normal_Videos_725_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.97199,
+   "score_cmaf": 0.89923
+  },
+  {
+   "id": "Normal_Videos_745_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.0032,
+   "score_cmaf": 0.06821
+  },
+  {
+   "id": "Normal_Videos_758_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00156,
+   "score_cmaf": 0.07014
+  },
+  {
+   "id": "Normal_Videos_778_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.04488,
+   "score_cmaf": 0.07279
+  },
+  {
+   "id": "Normal_Videos_780_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00305,
+   "score_cmaf": 0.06603
+  },
+  {
+   "id": "Normal_Videos_781_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00974,
+   "score_cmaf": 0.0679
+  },
+  {
+   "id": "Normal_Videos_782_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.11224,
+   "score_cmaf": 0.09756
+  },
+  {
+   "id": "Normal_Videos_783_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02166,
+   "score_cmaf": 0.07259
+  },
+  {
+   "id": "Normal_Videos_798_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.0163,
+   "score_cmaf": 0.06854
+  },
+  {
+   "id": "Normal_Videos_801_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01563,
+   "score_cmaf": 0.08089
+  },
+  {
+   "id": "Normal_Videos_828_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.0046,
+   "score_cmaf": 0.0664
+  },
+  {
+   "id": "Normal_Videos_831_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01553,
+   "score_cmaf": 0.0702
+  },
+  {
+   "id": "Normal_Videos_866_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00331,
+   "score_cmaf": 0.0679
+  },
+  {
+   "id": "Normal_Videos_867_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.0381,
+   "score_cmaf": 0.09899
+  },
+  {
+   "id": "Normal_Videos_868_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.93466,
+   "score_cmaf": 0.77124
+  },
+  {
+   "id": "Normal_Videos_869_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.2782,
+   "score_cmaf": 0.13679
+  },
+  {
+   "id": "Normal_Videos_870_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.62786,
+   "score_cmaf": 0.16662
+  },
+  {
+   "id": "Normal_Videos_871_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00801,
+   "score_cmaf": 0.0687
+  },
+  {
+   "id": "Normal_Videos_872_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02234,
+   "score_cmaf": 0.07224
+  },
+  {
+   "id": "Normal_Videos_873_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00349,
+   "score_cmaf": 0.07381
+  },
+  {
+   "id": "Normal_Videos_874_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.10404,
+   "score_cmaf": 0.11699
+  },
+  {
+   "id": "Normal_Videos_875_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01675,
+   "score_cmaf": 0.0702
+  },
+  {
+   "id": "Normal_Videos_876_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00443,
+   "score_cmaf": 0.07482
+  },
+  {
+   "id": "Normal_Videos_877_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.18378,
+   "score_cmaf": 0.09646
+  },
+  {
+   "id": "Normal_Videos_878_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.99201,
+   "score_cmaf": 0.88507
+  },
+  {
+   "id": "Normal_Videos_879_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.93835,
+   "score_cmaf": 0.23092
+  },
+  {
+   "id": "Normal_Videos_880_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00512,
+   "score_cmaf": 0.08069
+  },
+  {
+   "id": "Normal_Videos_881_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00077,
+   "score_cmaf": 0.06773
+  },
+  {
+   "id": "Normal_Videos_882_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02881,
+   "score_cmaf": 0.07246
+  },
+  {
+   "id": "Normal_Videos_883_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.26017,
+   "score_cmaf": 0.13524
+  },
+  {
+   "id": "Normal_Videos_884_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.68684,
+   "score_cmaf": 0.81542
+  },
+  {
+   "id": "Normal_Videos_885_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.06302,
+   "score_cmaf": 0.11468
+  },
+  {
+   "id": "Normal_Videos_886_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.84518,
+   "score_cmaf": 0.82113
+  },
+  {
+   "id": "Normal_Videos_887_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.99725,
+   "score_cmaf": 0.90472
+  },
+  {
+   "id": "Normal_Videos_888_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00621,
+   "score_cmaf": 0.07911
+  },
+  {
+   "id": "Normal_Videos_889_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00274,
+   "score_cmaf": 0.06959
+  },
+  {
+   "id": "Normal_Videos_890_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01116,
+   "score_cmaf": 0.06987
+  },
+  {
+   "id": "Normal_Videos_891_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00172,
+   "score_cmaf": 0.06541
+  },
+  {
+   "id": "Normal_Videos_892_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.5487,
+   "score_cmaf": 0.14299
+  },
+  {
+   "id": "Normal_Videos_893_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.05267,
+   "score_cmaf": 0.09912
+  },
+  {
+   "id": "Normal_Videos_894_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.84427,
+   "score_cmaf": 0.77215
+  },
+  {
+   "id": "Normal_Videos_895_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.221,
+   "score_cmaf": 0.50356
+  },
+  {
+   "id": "Normal_Videos_896_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.26564,
+   "score_cmaf": 0.09625
+  },
+  {
+   "id": "Normal_Videos_897_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00364,
+   "score_cmaf": 0.0886
+  },
+  {
+   "id": "Normal_Videos_898_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01551,
+   "score_cmaf": 0.07795
+  },
+  {
+   "id": "Normal_Videos_899_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00152,
+   "score_cmaf": 0.07266
+  },
+  {
+   "id": "Normal_Videos_900_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.19075,
+   "score_cmaf": 0.22887
+  },
+  {
+   "id": "Normal_Videos_901_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.98369,
+   "score_cmaf": 0.89817
+  },
+  {
+   "id": "Normal_Videos_902_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.87364,
+   "score_cmaf": 0.20677
+  },
+  {
+   "id": "Normal_Videos_903_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.16955,
+   "score_cmaf": 0.08788
+  },
+  {
+   "id": "Normal_Videos_904_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.09511,
+   "score_cmaf": 0.07957
+  },
+  {
+   "id": "Normal_Videos_905_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.16032,
+   "score_cmaf": 0.08661
+  },
+  {
+   "id": "Normal_Videos_906_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.6371,
+   "score_cmaf": 0.21754
+  },
+  {
+   "id": "Normal_Videos_907_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01508,
+   "score_cmaf": 0.06867
+  },
+  {
+   "id": "Normal_Videos_908_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.62498,
+   "score_cmaf": 0.1266
+  },
+  {
+   "id": "Normal_Videos_909_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02645,
+   "score_cmaf": 0.07255
+  },
+  {
+   "id": "Normal_Videos_910_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.20597,
+   "score_cmaf": 0.0912
+  },
+  {
+   "id": "Normal_Videos_911_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.20658,
+   "score_cmaf": 0.07778
+  },
+  {
+   "id": "Normal_Videos_912_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.40544,
+   "score_cmaf": 0.08709
+  },
+  {
+   "id": "Normal_Videos_913_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.69248,
+   "score_cmaf": 0.77246
+  },
+  {
+   "id": "Normal_Videos_914_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.10942,
+   "score_cmaf": 0.07031
+  },
+  {
+   "id": "Normal_Videos_915_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01547,
+   "score_cmaf": 0.06906
+  },
+  {
+   "id": "Normal_Videos_923_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.51437,
+   "score_cmaf": 0.17369
+  },
+  {
+   "id": "Normal_Videos_924_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.33582,
+   "score_cmaf": 0.18564
+  },
+  {
+   "id": "Normal_Videos_925_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.99814,
+   "score_cmaf": 0.91097
+  },
+  {
+   "id": "Normal_Videos_926_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.12888,
+   "score_cmaf": 0.10652
+  },
+  {
+   "id": "Normal_Videos_927_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.79153,
+   "score_cmaf": 0.79456
+  },
+  {
+   "id": "Normal_Videos_928_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00411,
+   "score_cmaf": 0.06778
+  },
+  {
+   "id": "Normal_Videos_929_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.02876,
+   "score_cmaf": 0.07986
+  },
+  {
+   "id": "Normal_Videos_930_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00567,
+   "score_cmaf": 0.08329
+  },
+  {
+   "id": "Normal_Videos_931_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.18089,
+   "score_cmaf": 0.09495
+  },
+  {
+   "id": "Normal_Videos_932_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.2681,
+   "score_cmaf": 0.86546
+  },
+  {
+   "id": "Normal_Videos_933_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.08408,
+   "score_cmaf": 0.10288
+  },
+  {
+   "id": "Normal_Videos_934_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00645,
+   "score_cmaf": 0.08165
+  },
+  {
+   "id": "Normal_Videos_935_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00328,
+   "score_cmaf": 0.06575
+  },
+  {
+   "id": "Normal_Videos_936_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.88692,
+   "score_cmaf": 0.82575
+  },
+  {
+   "id": "Normal_Videos_937_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.88692,
+   "score_cmaf": 0.82575
+  },
+  {
+   "id": "Normal_Videos_938_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.01933,
+   "score_cmaf": 0.09638
+  },
+  {
+   "id": "Normal_Videos_939_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.06351,
+   "score_cmaf": 0.1252
+  },
+  {
+   "id": "Normal_Videos_940_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00504,
+   "score_cmaf": 0.14578
+  },
+  {
+   "id": "Normal_Videos_941_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00788,
+   "score_cmaf": 0.08251
+  },
+  {
+   "id": "Normal_Videos_943_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.83497,
+   "score_cmaf": 0.87268
+  },
+  {
+   "id": "Normal_Videos_944_x264",
+   "category": "NormalVideos",
+   "label": 0,
+   "score_baseline": 0.00247,
+   "score_cmaf": 0.06604
+  },
+  {
+   "id": "RoadAccidents001_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.99955,
+   "score_cmaf": 0.91084
+  },
+  {
+   "id": "RoadAccidents002_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.07209,
+   "score_cmaf": 0.08356
+  },
+  {
+   "id": "RoadAccidents004_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.83673,
+   "score_cmaf": 0.89245
+  },
+  {
+   "id": "RoadAccidents009_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.9722,
+   "score_cmaf": 0.87752
+  },
+  {
+   "id": "RoadAccidents010_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.98324,
+   "score_cmaf": 0.89631
+  },
+  {
+   "id": "RoadAccidents011_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.84247,
+   "score_cmaf": 0.84746
+  },
+  {
+   "id": "RoadAccidents012_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.68786,
+   "score_cmaf": 0.34009
+  },
+  {
+   "id": "RoadAccidents016_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.13028,
+   "score_cmaf": 0.10792
+  },
+  {
+   "id": "RoadAccidents017_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.94387,
+   "score_cmaf": 0.89753
+  },
+  {
+   "id": "RoadAccidents019_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.91276,
+   "score_cmaf": 0.89187
+  },
+  {
+   "id": "RoadAccidents020_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.97083,
+   "score_cmaf": 0.90907
+  },
+  {
+   "id": "RoadAccidents021_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.9879,
+   "score_cmaf": 0.90444
+  },
+  {
+   "id": "RoadAccidents022_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.82146,
+   "score_cmaf": 0.8556
+  },
+  {
+   "id": "RoadAccidents121_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.9833,
+   "score_cmaf": 0.91176
+  },
+  {
+   "id": "RoadAccidents122_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.92289,
+   "score_cmaf": 0.90556
+  },
+  {
+   "id": "RoadAccidents123_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.29616,
+   "score_cmaf": 0.11224
+  },
+  {
+   "id": "RoadAccidents124_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.99732,
+   "score_cmaf": 0.89985
+  },
+  {
+   "id": "RoadAccidents125_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.92275,
+   "score_cmaf": 0.87746
+  },
+  {
+   "id": "RoadAccidents127_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.8243,
+   "score_cmaf": 0.89801
+  },
+  {
+   "id": "RoadAccidents128_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.99224,
+   "score_cmaf": 0.90899
+  },
+  {
+   "id": "RoadAccidents131_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.98093,
+   "score_cmaf": 0.91301
+  },
+  {
+   "id": "RoadAccidents132_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.23896,
+   "score_cmaf": 0.16081
+  },
+  {
+   "id": "RoadAccidents133_x264",
+   "category": "RoadAccidents",
+   "label": 1,
+   "score_baseline": 0.65551,
+   "score_cmaf": 0.87325
+  },
+  {
+   "id": "Robbery048_x264",
+   "category": "Robbery",
+   "label": 1,
+   "score_baseline": 0.88885,
+   "score_cmaf": 0.78671
+  },
+  {
+   "id": "Robbery050_x264",
+   "category": "Robbery",
+   "label": 1,
+   "score_baseline": 0.06627,
+   "score_cmaf": 0.14504
+  },
+  {
+   "id": "Robbery102_x264",
+   "category": "Robbery",
+   "label": 1,
+   "score_baseline": 0.71066,
+   "score_cmaf": 0.2296
+  },
+  {
+   "id": "Robbery106_x264",
+   "category": "Robbery",
+   "label": 1,
+   "score_baseline": 0.9122,
+   "score_cmaf": 0.89331
+  },
+  {
+   "id": "Robbery137_x264",
+   "category": "Robbery",
+   "label": 1,
+   "score_baseline": 0.13168,
+   "score_cmaf": 0.52424
+  },
+  {
+   "id": "Shooting002_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99932,
+   "score_cmaf": 0.90456
+  },
+  {
+   "id": "Shooting004_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99593,
+   "score_cmaf": 0.91019
+  },
+  {
+   "id": "Shooting007_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.87554,
+   "score_cmaf": 0.81861
+  },
+  {
+   "id": "Shooting008_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.83118,
+   "score_cmaf": 0.27232
+  },
+  {
+   "id": "Shooting010_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.96623,
+   "score_cmaf": 0.74725
+  },
+  {
+   "id": "Shooting011_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99085,
+   "score_cmaf": 0.87952
+  },
+  {
+   "id": "Shooting013_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99186,
+   "score_cmaf": 0.88767
+  },
+  {
+   "id": "Shooting015_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.81635,
+   "score_cmaf": 0.85677
+  },
+  {
+   "id": "Shooting018_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.30307,
+   "score_cmaf": 0.45769
+  },
+  {
+   "id": "Shooting019_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99921,
+   "score_cmaf": 0.91427
+  },
+  {
+   "id": "Shooting021_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99826,
+   "score_cmaf": 0.9077
+  },
+  {
+   "id": "Shooting022_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.96647,
+   "score_cmaf": 0.87111
+  },
+  {
+   "id": "Shooting024_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.41874,
+   "score_cmaf": 0.17354
+  },
+  {
+   "id": "Shooting026_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.9983,
+   "score_cmaf": 0.90713
+  },
+  {
+   "id": "Shooting028_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.97663,
+   "score_cmaf": 0.9084
+  },
+  {
+   "id": "Shooting032_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.69217,
+   "score_cmaf": 0.13233
+  },
+  {
+   "id": "Shooting033_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.98968,
+   "score_cmaf": 0.88456
+  },
+  {
+   "id": "Shooting034_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.98331,
+   "score_cmaf": 0.87891
+  },
+  {
+   "id": "Shooting037_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99855,
+   "score_cmaf": 0.90751
+  },
+  {
+   "id": "Shooting043_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99308,
+   "score_cmaf": 0.91372
+  },
+  {
+   "id": "Shooting046_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.47274,
+   "score_cmaf": 0.7966
+  },
+  {
+   "id": "Shooting047_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.99866,
+   "score_cmaf": 0.9105
+  },
+  {
+   "id": "Shooting048_x264",
+   "category": "Shooting",
+   "label": 1,
+   "score_baseline": 0.03665,
+   "score_cmaf": 0.08064
+  },
+  {
+   "id": "Shoplifting001_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.98113,
+   "score_cmaf": 0.90262
+  },
+  {
+   "id": "Shoplifting004_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.99837,
+   "score_cmaf": 0.90859
+  },
+  {
+   "id": "Shoplifting005_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.80051,
+   "score_cmaf": 0.87072
+  },
+  {
+   "id": "Shoplifting007_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.99596,
+   "score_cmaf": 0.90457
+  },
+  {
+   "id": "Shoplifting010_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.82193,
+   "score_cmaf": 0.6184
+  },
+  {
+   "id": "Shoplifting015_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.12812,
+   "score_cmaf": 0.18595
+  },
+  {
+   "id": "Shoplifting016_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.79374,
+   "score_cmaf": 0.81849
+  },
+  {
+   "id": "Shoplifting017_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.98297,
+   "score_cmaf": 0.87267
+  },
+  {
+   "id": "Shoplifting020_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.96771,
+   "score_cmaf": 0.85503
+  },
+  {
+   "id": "Shoplifting021_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.99363,
+   "score_cmaf": 0.90558
+  },
+  {
+   "id": "Shoplifting022_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.83846,
+   "score_cmaf": 0.79685
+  },
+  {
+   "id": "Shoplifting027_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.65137,
+   "score_cmaf": 0.814
+  },
+  {
+   "id": "Shoplifting028_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.41041,
+   "score_cmaf": 0.59952
+  },
+  {
+   "id": "Shoplifting029_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.14561,
+   "score_cmaf": 0.83031
+  },
+  {
+   "id": "Shoplifting031_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.94103,
+   "score_cmaf": 0.87119
+  },
+  {
+   "id": "Shoplifting033_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.01151,
+   "score_cmaf": 0.09126
+  },
+  {
+   "id": "Shoplifting034_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.92758,
+   "score_cmaf": 0.82832
+  },
+  {
+   "id": "Shoplifting037_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.97215,
+   "score_cmaf": 0.83893
+  },
+  {
+   "id": "Shoplifting039_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.00626,
+   "score_cmaf": 0.0703
+  },
+  {
+   "id": "Shoplifting044_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.94254,
+   "score_cmaf": 0.89387
+  },
+  {
+   "id": "Shoplifting049_x264",
+   "category": "Shoplifting",
+   "label": 1,
+   "score_baseline": 0.72193,
+   "score_cmaf": 0.90847
+  },
+  {
+   "id": "Stealing019_x264",
+   "category": "Stealing",
+   "label": 1,
+   "score_baseline": 0.95987,
+   "score_cmaf": 0.90528
+  },
+  {
+   "id": "Stealing036_x264",
+   "category": "Stealing",
+   "label": 1,
+   "score_baseline": 0.98219,
+   "score_cmaf": 0.90018
+  },
+  {
+   "id": "Stealing058_x264",
+   "category": "Stealing",
+   "label": 1,
+   "score_baseline": 0.99902,
+   "score_cmaf": 0.90234
+  },
+  {
+   "id": "Stealing062_x264",
+   "category": "Stealing",
+   "label": 1,
+   "score_baseline": 0.99649,
+   "score_cmaf": 0.88857
+  },
+  {
+   "id": "Stealing079_x264",
+   "category": "Stealing",
+   "label": 1,
+   "score_baseline": 0.97103,
+   "score_cmaf": 0.90377
+  },
+  {
+   "id": "Vandalism007_x264",
+   "category": "Vandalism",
+   "label": 1,
+   "score_baseline": 0.99188,
+   "score_cmaf": 0.90281
+  },
+  {
+   "id": "Vandalism015_x264",
+   "category": "Vandalism",
+   "label": 1,
+   "score_baseline": 0.7473,
+   "score_cmaf": 0.83847
+  },
+  {
+   "id": "Vandalism017_x264",
+   "category": "Vandalism",
+   "label": 1,
+   "score_baseline": 0.96331,
+   "score_cmaf": 0.90317
+  },
+  {
+   "id": "Vandalism028_x264",
+   "category": "Vandalism",
+   "label": 1,
+   "score_baseline": 0.9858,
+   "score_cmaf": 0.9021
+  },
+  {
+   "id": "Vandalism036_x264",
+   "category": "Vandalism",
+   "label": 1,
+   "score_baseline": 0.31431,
+   "score_cmaf": 0.80774
+  }
+ ]
+}

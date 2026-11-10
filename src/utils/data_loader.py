@@ -17,11 +17,22 @@ class VideoAnomalyDataset(Dataset):
         self.class_names = []
         self.failed_loads = []
         
-        # Class mapping
+        # Class mapping - all anomaly types mapped to label 1
         self.class_to_idx = {
             'normal': 0,
             'abuse': 1,
-            'explosion': 1
+            'Arrest': 1,
+            'Arson': 1,
+            'Assault': 1,
+            'Burglary': 1,
+            'explosion': 1,
+            'Fighting': 1,
+            'RoadAccidents': 1,
+            'Robbery': 1,
+            'Shooting': 1,
+            'Shoplifting': 1,
+            'Stealing': 1,
+            'Vandalism': 1
         }
         
         # Data augmentation for training
@@ -61,7 +72,8 @@ class VideoAnomalyDataset(Dataset):
         valid_extensions = ('.mp4', '.avi', '.mov', '.mkv', '.wmv')
         min_size = 1000  # Minimum file size in bytes
         
-        for class_name in ['normal', 'abuse', 'explosion']:
+        # Load all anomaly types
+        for class_name in self.class_to_idx.keys():
             class_path = os.path.join(split_path, class_name)
             if not os.path.exists(class_path):
                 print(f"Warning: Class path {class_path} does not exist")

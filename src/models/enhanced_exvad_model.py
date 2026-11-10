@@ -49,13 +49,20 @@ class EnhancedExVADModel(nn.Module):
         Enhanced forward pass with cross-modal attention fusion
         
         Args:
-            frames: List of video frames
+            frames: List of video frames OR batched tensor (B, T, C, H, W)
             
         Returns:
             anomaly_score: Predicted anomaly score (tensor)
             explanation: Generated explanation (string)
             captions: Generated captions (list of strings)
         """
+        # Convert batched tensor to list of frames if needed
+        if torch.is_tensor(frames) and frames.dim() == 5:
+            # Batched tensor: (B, T, C, H, W) -> extract first batch
+            frames = frames[0]  # (T, C, H, W)
+            # Convert to list of frames
+            frames = [frames[i] for i in range(frames.shape[0])]
+        
         # Generate explanations and captions using AEGM (BLIP)
         explanation, captions = self.aegm(frames)
         

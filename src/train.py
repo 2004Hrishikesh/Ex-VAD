@@ -10,8 +10,8 @@ from torch.cuda.amp import autocast, GradScaler
 import torch.backends.cudnn as cudnn
 warnings.filterwarnings('ignore')
 
-from models.exvad_model import ExVADModel
-from utils.data_loader_new import create_dataloaders
+from .models.exvad_model import ExVADModel
+from .utils.data_loader_new import create_dataloaders
 
 def setup_device():
     """Setup device with proper GPU detection and optimization"""
@@ -197,7 +197,7 @@ def train_model(data_root="../data", epochs=5, learning_rate=1e-3, save_path="..
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=2, gamma=0.1)
     
     # Import threshold tuning
-    from utils.threshold_tuning import find_optimal_threshold
+    from .utils.threshold_tuning import find_optimal_threshold
     
     # Training loop
     best_accuracy = 0
@@ -267,16 +267,16 @@ def train_model(data_root="../data", epochs=5, learning_rate=1e-3, save_path="..
 
 if __name__ == "__main__":
     # Test GPU first
-    from test_gpu import test_gpu_setup
+    from .test_gpu import test_gpu_setup
     
     if test_gpu_setup():
         print("\n" + "="*60)
         print("Starting training...")
         model, history = train_model(
-            data_root="../data",
-            epochs=5,
+            data_root="data",
+            epochs=10,
             learning_rate=1e-3,
-            save_path="../models_saved"
+            save_path="models_saved"
         )
     else:
         print("❌ GPU setup failed. Please fix GPU issues before training.")

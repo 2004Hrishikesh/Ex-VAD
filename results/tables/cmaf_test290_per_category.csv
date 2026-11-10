@@ -1,0 +1,15 @@
+category,videos,exvad_correct,cmaf_correct
+Abuse,2,2,2
+Arrest,5,3,4
+Arson,9,9,9
+Assault,3,2,2
+Burglary,13,11,13
+Explosion,21,19,19
+Fighting,5,2,2
+NormalVideos,150,120,115
+RoadAccidents,23,19,20
+Robbery,5,3,4
+Shooting,23,19,21
+Shoplifting,21,16,19
+Stealing,5,5,5
+Vandalism,5,4,5

@@ -1,0 +1,58 @@
+{
+  "samples": 290,
+  "positives": 140,
+  "negatives": 150,
+  "current_threshold_0_44": {
+    "threshold": 0.44,
+    "accuracy": 0.8620689655172413,
+    "precision": 0.8623188405797102,
+    "recall": 0.85,
+    "f1": 0.8561151079136692,
+    "normal_accuracy": 0.8733333333333333,
+    "anomaly_accuracy": 0.85,
+    "tp": 119,
+    "tn": 131,
+    "fp": 19,
+    "fn": 21
+  },
+  "best_f1_threshold": {
+    "threshold": 0.44,
+    "accuracy": 0.8620689655172413,
+    "precision": 0.8623188405797102,
+    "recall": 0.85,
+    "f1": 0.8561151079136692,
+    "normal_accuracy": 0.8733333333333333,
+    "anomaly_accuracy": 0.85,
+    "tp": 119,
+    "tn": 131,
+    "fp": 19,
+    "fn": 21
+  },
+  "best_accuracy_threshold": {
+    "threshold": 0.44,
+    "accuracy": 0.8620689655172413,
+    "precision": 0.8623188405797102,
+    "recall": 0.85,
+    "f1": 0.8561151079136692,
+    "normal_accuracy": 0.8733333333333333,
+    "anomaly_accuracy": 0.85,
+    "tp": 119,
+    "tn": 131,
+    "fp": 19,
+    "fn": 21
+  },
+  "cmaf_recall_target": 0.8928571428571429,
+  "best_threshold_meeting_cmaf_recall": {
+    "threshold": 0.025,
+    "accuracy": 0.803448275862069,
+    "precision": 0.726775956284153,
+    "recall": 0.95,
+    "f1": 0.823529411764706,
+    "normal_accuracy": 0.6666666666666666,
+    "anomaly_accuracy": 0.95,
+    "tp": 133,
+    "tn": 100,
+    "fp": 50,
+    "fn": 7
+  }
+}
