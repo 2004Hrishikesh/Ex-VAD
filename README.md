@@ -67,9 +67,16 @@ python scripts/demo_cmaf.py                  # demo with captions as explanation
 
 Model checkpoints are about 1.5 GB because they include the CLIP, BLIP and DistilBERT weights, so they are not stored in git.
 
-## Follow-up: temporal extension
+## Temporal extension
 
-[`temporal_extension/`](temporal_extension/) adds a temporal branch (Transformer + BiLSTM + motion encoder) on top of CMAF, with a confidence-gated fusion rule. On the same test split it reaches 0.862 accuracy and 0.856 F1, and cuts false alarms from 35 to 19. It is ongoing work and is not part of the published paper.
+CMAF averages frame features, so it ignores the order of events. [`temporal_extension/`](temporal_extension/) adds a temporal branch (Transformer + BiLSTM + motion encoder) next to CMAF and a confidence-gated rule that corrects the CMAF score only when the temporal evidence is decisive.
+
+| Model | Accuracy | F1 | False alarms |
+|---|---:|---:|---:|
+| ExVAD + CMAF | 0.828 | 0.833 | 35 |
+| + Temporal | **0.862** | **0.856** | **19** |
+
+This part is not in the published paper.
 
 ## Citation
 

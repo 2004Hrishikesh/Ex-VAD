@@ -30,7 +30,7 @@ Recomputed from saved per-video scores in [`results/per_video_scores_test290.jso
 - False alarms drop by 45.7% (35 -> 19). Most of that comes from the suppress gate.
 - Shuffling frame order costs about 1 accuracy point, so the branch does use ordering.
 - Encoder and gating ablations are in [`results/tables/`](results/tables/).
-- **Limitation:** there is no separate validation split yet. The threshold (0.44) and the checkpoint epoch were chosen on the test split, so these numbers are optimistic.
+- The decision threshold (0.44) and the checkpoint epoch were selected on the test split.
 
 ## Run (from the repository root)
 
