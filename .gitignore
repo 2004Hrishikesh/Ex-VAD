@@ -49,7 +49,6 @@ outputs/
 *.sqlite
 
 # Local only
-.claude/
 paper/
 src/demo_new.py
 _to_delete/

@@ -36,11 +36,11 @@ def setup_device():
         torch.backends.cuda.matmul.allow_tf32 = True
         torch.backends.cudnn.allow_tf32 = True
         
-        print("✅ GPU optimizations enabled")
+        print("GPU optimizations enabled")
         return device
     else:
         device = torch.device('cpu')
-        print("⚠️ CUDA not available, using CPU")
+        print("CUDA not available, using CPU")
         return device
 
 def train_epoch(model, train_loader, criterion, optimizer, device):
@@ -225,7 +225,7 @@ def train_model(data_root="../data", epochs=5, learning_rate=1e-3, save_path="..
         if val_acc > best_accuracy:
             best_accuracy = val_acc
             torch.save(model.state_dict(), os.path.join(save_path, 'best_model.pth'))
-            print(f"✅ New best model saved! Accuracy: {best_accuracy:.4f}")
+            print(f"New best model saved! Accuracy: {best_accuracy:.4f}")
         
         # GPU memory info
         if device.type == 'cuda':
@@ -247,7 +247,7 @@ def train_model(data_root="../data", epochs=5, learning_rate=1e-3, save_path="..
     with open(os.path.join(save_path, 'training_history.json'), 'w') as f:
         json.dump(training_history, f, indent=2)
     
-    print(f"\n🎉 Training completed! Best accuracy: {best_accuracy:.4f}")
+    print(f"\nTraining completed! Best accuracy: {best_accuracy:.4f}")
     
     # Find optimal threshold
     print("\nFinding optimal threshold...")
@@ -262,7 +262,7 @@ def train_model(data_root="../data", epochs=5, learning_rate=1e-3, save_path="..
     with open(os.path.join(save_path, 'threshold_info.json'), 'w') as f:
         json.dump(threshold_info, f, indent=2)
     
-    print("✅ Optimal threshold saved!")
+    print("Optimal threshold saved!")
     return model, training_history, threshold_info
 
 if __name__ == "__main__":
@@ -279,4 +279,4 @@ if __name__ == "__main__":
             save_path="models_saved"
         )
     else:
-        print("❌ GPU setup failed. Please fix GPU issues before training.")
+        print("GPU setup failed. Please fix GPU issues before training.")

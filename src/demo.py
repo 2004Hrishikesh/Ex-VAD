@@ -19,7 +19,7 @@ def run_demo(model_path="models_saved/best_model.pth", data_root="data"):
         print(f"GPU Memory: {torch.cuda.get_device_properties(0).total_memory // 1024**3} GB")
     else:
         device = torch.device('cpu')
-        print("⚠️ CUDA not available, using CPU")
+        print("CUDA not available, using CPU")
     
     # Load model
     print("\nLoading model...")
@@ -27,9 +27,9 @@ def run_demo(model_path="models_saved/best_model.pth", data_root="data"):
     if os.path.exists(model_path):
         model_state_dict = torch.load(model_path, map_location=device)
         model.load_state_dict(model_state_dict, strict=False)  # Allow missing keys
-        print(f"✅ Model loaded successfully!")
+        print(f"Model loaded successfully!")
     else:
-        print("❌ No trained model found. Please train first.")
+        print("No trained model found. Please train first.")
         return
     
     model.eval()
@@ -37,7 +37,7 @@ def run_demo(model_path="models_saved/best_model.pth", data_root="data"):
     # Process test videos
     test_path = os.path.join(data_root, 'videos', 'test')
     if not os.path.exists(test_path):
-        print(f"❌ Test directory not found at {test_path}")
+        print(f"Test directory not found at {test_path}")
         return
         
     results = []
@@ -48,7 +48,7 @@ def run_demo(model_path="models_saved/best_model.pth", data_root="data"):
     for category in ['normal', 'abuse', 'explosion']:
         category_path = os.path.join(test_path, category)
         if not os.path.exists(category_path):
-            print(f"⚠️ {category} folder not found")
+            print(f"{category} folder not found")
             continue
         
         print(f"\nProcessing {category} videos:")
@@ -111,7 +111,7 @@ def run_demo(model_path="models_saved/best_model.pth", data_root="data"):
     with open(os.path.join(output_dir, 'demo_results.json'), 'w') as f:
         json.dump(results, f, indent=2)
     
-    print(f"\n🎉 Demo completed! Results saved to outputs/demo_results.json")
+    print(f"\nDemo completed! Results saved to outputs/demo_results.json")
 
 if __name__ == "__main__":
     run_demo()

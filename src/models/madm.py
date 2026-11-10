@@ -23,7 +23,7 @@ class SimpleMADM(nn.Module):
             nn.Linear(256, 1)
         ).to(device)
         
-        print("✅ CLIP model loaded successfully!")
+        print("CLIP model loaded successfully!")
     
     def extract_visual_features(self, frames):
         """Extract CLIP features from frames with proper error handling"""

@@ -51,14 +51,14 @@ def train_temporal_model(
     print("\n" + "="*80)
     print("TEMPORAL-ENHANCED EXVAD TRAINING")
     print("="*80)
-    print(f"📅 Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
     # Setup device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"\n🖥️  Device: {device}")
+    print(f"\n Device: {device}")
     if torch.cuda.is_available():
-        print(f"🎮 GPU: {torch.cuda.get_device_name(0)}")
-        print(f"💾 Memory: {torch.cuda.get_device_properties(0).total_memory // 1024**3} GB")
+        print(f"GPU: {torch.cuda.get_device_name(0)}")
+        print(f"Memory: {torch.cuda.get_device_properties(0).total_memory // 1024**3} GB")
     
     # Training configuration
     config = {
@@ -73,12 +73,12 @@ def train_temporal_model(
         'architecture': 'Temporal-Enhanced-CMAF-ExVAD'
     }
     
-    print("\n📋 Configuration:")
+    print("\nConfiguration:")
     for k, v in config.items():
         print(f"   {k}: {v}")
     
     # Initialize model
-    print("\n📦 Initializing model...")
+    print("\nInitializing model...")
     model = TemporalEnhancedExVAD(
         device=device,
         temporal_hidden_dim=256,  # Reduced for memory efficiency
@@ -94,19 +94,19 @@ def train_temporal_model(
     # Load base model weights if available
     base_checkpoint_path = os.path.join(save_dir, "best_model.pth")
     if os.path.exists(base_checkpoint_path):
-        print(f"\n📥 Loading base model weights from: {base_checkpoint_path}")
+        print(f"\nLoading base model weights from: {base_checkpoint_path}")
         try:
             checkpoint = torch.load(base_checkpoint_path, map_location=device, weights_only=False)
             if isinstance(checkpoint, dict) and 'model_state_dict' in checkpoint:
                 model.base_model.load_state_dict(checkpoint['model_state_dict'], strict=False)
             else:
                 model.base_model.load_state_dict(checkpoint, strict=False)
-            print("✅ Base model weights loaded")
+            print("Base model weights loaded")
         except Exception as e:
-            print(f"⚠️  Could not load base weights: {e}")
+            print(f" Could not load base weights: {e}")
     
     # Setup data
-    print("\n📂 Loading datasets...")
+    print("\nLoading datasets...")
     
     # Use fewer frames and limit dataset size for faster training
     train_dataset = VideoAnomalyDataset(data_root=data_root, split='train', num_frames=8, device=device, max_samples_per_category=20)
@@ -148,7 +148,7 @@ def train_temporal_model(
     optimizer = optim.AdamW(params_to_train, lr=learning_rate, weight_decay=0.01)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
     
-    print(f"\n🎯 Trainable parameters: {sum(p.numel() for p in params_to_train):,}")
+    print(f"\nTrainable parameters: {sum(p.numel() for p in params_to_train):,}")
     
     # Training history
     history = {
@@ -164,11 +164,11 @@ def train_temporal_model(
     
     # Training loop
     print("\n" + "="*80)
-    print("🚀 STARTING TRAINING")
+    print("STARTING TRAINING")
     print("="*80)
     
     for epoch in range(epochs):
-        print(f"\n📈 Epoch {epoch+1}/{epochs}")
+        print(f"\nEpoch {epoch+1}/{epochs}")
         print("-" * 50)
         
         # Training phase
@@ -223,7 +223,7 @@ def train_temporal_model(
                 })
                 
             except Exception as e:
-                print(f"\n⚠️  Error in batch {batch_idx}: {e}")
+                print(f"\n Error in batch {batch_idx}: {e}")
                 continue
         
         # Epoch training stats
@@ -293,7 +293,7 @@ def train_temporal_model(
                 'config': config,
                 'architecture': 'Temporal-Enhanced-CMAF-ExVAD'
             }, save_path)
-            print(f"\n   💾 New best model saved! (Accuracy: {epoch_val_acc*100:.2f}%)")
+            print(f"\n   New best model saved! (Accuracy: {epoch_val_acc*100:.2f}%)")
         
         # Clear GPU cache
         if torch.cuda.is_available():
@@ -301,9 +301,9 @@ def train_temporal_model(
     
     # Training complete
     print("\n" + "="*80)
-    print("✅ TRAINING COMPLETE!")
+    print("TRAINING COMPLETE!")
     print("="*80)
-    print(f"\n📊 Final Results:")
+    print(f"\nFinal Results:")
     print(f"   Best Validation Accuracy: {best_val_acc*100:.2f}% (Epoch {best_epoch})")
     print(f"   Final Training Accuracy: {history['train_acc'][-1]*100:.2f}%")
     
@@ -311,7 +311,7 @@ def train_temporal_model(
     history_path = os.path.join(save_dir, "temporal_training_history.json")
     with open(history_path, 'w') as f:
         json.dump(history, f, indent=2)
-    print(f"\n💾 Training history saved to: {history_path}")
+    print(f"\nTraining history saved to: {history_path}")
     
     return model, history
 

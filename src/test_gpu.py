@@ -30,10 +30,10 @@ def test_gpu_setup():
         # Check memory
         print(f"GPU memory allocated: {torch.cuda.memory_allocated() / 1024**3:.2f} GB")
         torch.cuda.empty_cache()
-        print("✅ GPU test passed!")
+        print("GPU test passed!")
         return True
     else:
-        print("❌ CUDA not available")
+        print("CUDA not available")
         return False
 
 if __name__ == "__main__":

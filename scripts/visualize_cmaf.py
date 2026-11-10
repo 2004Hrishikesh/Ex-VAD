@@ -58,8 +58,8 @@ ax.text(5, 5.5, 'Cross-Modal Attention Fusion', ha='center', va='center',
         fontsize=14, fontweight='bold')
 
 # Bidirectional arrows in attention box
-ax.text(5, 5, 'Visual → Text\n(8-head attention)', ha='center', va='center', fontsize=10)
-ax.text(5, 4.5, 'Text → Visual\n(8-head attention)', ha='center', va='center', fontsize=10)
+ax.text(5, 5, 'Visual -> Text\n(8-head attention)', ha='center', va='center', fontsize=10)
+ax.text(5, 4.5, 'Text -> Visual\n(8-head attention)', ha='center', va='center', fontsize=10)
 
 # Fusion gate
 gate_box = FancyBboxPatch((4.2, 2.5), 1.6, 0.8, boxstyle="round,pad=0.1", 
@@ -140,4 +140,4 @@ plt.tight_layout()
 plt.savefig('CMAF_Architecture.png', dpi=300, bbox_inches='tight')
 plt.show()
 
-print("✅ CMAF Architecture diagram saved as 'CMAF_Architecture.png'")
+print("CMAF Architecture diagram saved as 'CMAF_Architecture.png'")

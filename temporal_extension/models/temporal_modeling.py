@@ -536,4 +536,4 @@ if __name__ == "__main__":
     print(f"\n   Total parameters: {total_params:,}")
     print(f"   Trainable parameters: {trainable_params:,}")
     
-    print("\n✅ All temporal modeling modules tested successfully!")
+    print("\nAll temporal modeling modules tested successfully!")

@@ -31,18 +31,18 @@ class EnhancedExVADModel(nn.Module):
         # Initialize Enhanced MADM with cross-modal attention
         if use_cross_modal_attention:
             self.madm = EnhancedMADM(device)
-            print("✅ Using Cross-Modal Attention Fusion")
+            print("Using Cross-Modal Attention Fusion")
         else:
             # Fallback to original MADM for ablation studies
             from .madm import SimpleMADM
             self.madm = SimpleMADM(device)
-            print("✅ Using Original MADM (no cross-modal attention)")
+            print("Using Original MADM (no cross-modal attention)")
         
         # Additional fusion components
         self.modality_weights = nn.Parameter(torch.tensor([0.7, 0.3]))  # Visual, Text weights
         self.temperature = nn.Parameter(torch.tensor(1.0))  # Temperature for attention
         
-        print(f"✅ Enhanced ExVAD model initialized on {device}")
+        print(f"Enhanced ExVAD model initialized on {device}")
     
     def forward(self, frames):
         """
@@ -165,14 +165,14 @@ class EnhancedExVADModel(nn.Module):
         """Enable cross-modal attention (for ablation studies)"""
         if hasattr(self, 'madm') and hasattr(self.madm, 'cmaf'):
             self.use_cross_modal_attention = True
-            print("✅ Cross-modal attention enabled")
+            print("Cross-modal attention enabled")
         else:
-            print("❌ Cross-modal attention not available in current model")
+            print("Cross-modal attention not available in current model")
     
     def disable_cross_modal_attention(self):
         """Disable cross-modal attention (for ablation studies)"""
         self.use_cross_modal_attention = False
-        print("✅ Cross-modal attention disabled")
+        print("Cross-modal attention disabled")
     
     def to(self, device):
         """Move model to device"""

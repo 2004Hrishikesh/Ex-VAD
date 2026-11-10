@@ -44,11 +44,11 @@ def setup_device():
         torch.backends.cuda.matmul.allow_tf32 = True
         torch.backends.cudnn.allow_tf32 = True
         
-        print("✅ GPU optimizations enabled")
+        print("GPU optimizations enabled")
         return device
     else:
         device = torch.device('cpu')
-        print("⚠️ CUDA not available, using CPU")
+        print("CUDA not available, using CPU")
         return device
 
 def cross_modal_attention_loss(model, frames, explanations, lambda_cmaf=0.1):
@@ -426,25 +426,25 @@ def train_enhanced_model(data_root="../data", epochs=3, learning_rate=5e-4, save
                 # Verify file was created and check size
                 if os.path.exists(model_save_path):
                     file_size_mb = os.path.getsize(model_save_path) / (1024**2)
-                    print(f"✅ New best CMAF model saved successfully!")
-                    print(f"   📁 Path: {model_save_path}")
-                    print(f"   📦 Size: {file_size_mb:.2f} MB")
-                    print(f"   🎯 Accuracy: {best_accuracy:.4f}")
+                    print(f"New best CMAF model saved successfully!")
+                    print(f"   Path: {model_save_path}")
+                    print(f"   Size: {file_size_mb:.2f} MB")
+                    print(f"   Accuracy: {best_accuracy:.4f}")
                     print(f"   ⚡ Architecture: Enhanced ExVAD with CMAF")
                 else:
-                    print(f"❌ ERROR: Model file not created at {model_save_path}")
+                    print(f"ERROR: Model file not created at {model_save_path}")
                     
             except Exception as e:
-                print(f"❌ ERROR saving model: {e}")
+                print(f"ERROR saving model: {e}")
                 import traceback
                 traceback.print_exc()
                 # Try fallback save with just state dict
                 try:
                     fallback_path = os.path.join(save_path, 'best_model_fallback.pth')
                     torch.save(model.state_dict(), fallback_path)
-                    print(f"⚠️  Fallback save succeeded: {fallback_path}")
+                    print(f" Fallback save succeeded: {fallback_path}")
                 except Exception as e2:
-                    print(f"❌ Fallback save also failed: {e2}")
+                    print(f"Fallback save also failed: {e2}")
         
         # GPU memory info
         if device.type == 'cuda':
@@ -468,7 +468,7 @@ def train_enhanced_model(data_root="../data", epochs=3, learning_rate=5e-4, save
     with open(os.path.join(save_path, 'enhanced_training_history.json'), 'w') as f:
         json.dump(training_history, f, indent=2)
     
-    print(f"\n🎉 Enhanced training completed! Best accuracy: {best_accuracy:.4f}")
+    print(f"\nEnhanced training completed! Best accuracy: {best_accuracy:.4f}")
     
     # Find optimal threshold
     print("\nFinding optimal threshold for enhanced model...")
@@ -487,7 +487,7 @@ def train_enhanced_model(data_root="../data", epochs=3, learning_rate=5e-4, save
     with open(os.path.join(save_path, 'enhanced_threshold_info.json'), 'w') as f:
         json.dump(threshold_info, f, indent=2)
     
-    print("✅ Enhanced model training and threshold optimization completed!")
+    print("Enhanced model training and threshold optimization completed!")
     return model, training_history, threshold_info
 
 if __name__ == "__main__":
@@ -511,10 +511,10 @@ if __name__ == "__main__":
         print("\n" + "="*80)
         print("Enhanced training completed successfully!")
         print("Novel contributions implemented:")
-        print("1. ✅ Cross-Modal Attention Fusion (CMAF)")
-        print("2. ✅ Enhanced anomaly detection head")
-        print("3. ✅ Cross-modal attention regularization loss")
-        print("4. ✅ Comprehensive attention analysis")
+        print("1. Cross-Modal Attention Fusion (CMAF)")
+        print("2. Enhanced anomaly detection head")
+        print("3. Cross-modal attention regularization loss")
+        print("4. Comprehensive attention analysis")
         print("="*80)
         
         # Run verification after training
@@ -531,12 +531,12 @@ if __name__ == "__main__":
                 cwd='src'
             )
             if result.returncode == 0:
-                print("\n✅ Verification PASSED!")
+                print("\nVerification PASSED!")
             else:
-                print("\n⚠️  Verification completed with issues. Check output above.")
+                print("\n Verification completed with issues. Check output above.")
         except Exception as e:
-            print(f"\n⚠️  Could not run verification: {e}")
+            print(f"\n Could not run verification: {e}")
             print("   You can manually run: python verify_cmaf_training.py")
         
     else:
-        print("❌ GPU setup failed. Please fix GPU issues before training.")
+        print("GPU setup failed. Please fix GPU issues before training.")

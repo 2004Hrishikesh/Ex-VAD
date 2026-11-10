@@ -12,7 +12,7 @@ class ExVADModel(nn.Module):
         self.aegm = SimpleAEGM(device)
         self.madm = SimpleMADM(device)
         
-        print(f"✅ ExVAD model initialized on {device}")
+        print(f"ExVAD model initialized on {device}")
     
     def forward(self, frames):
         """Forward pass through the model"""

@@ -220,7 +220,7 @@ class EnhancedMADM(nn.Module):
             nn.Sigmoid()  # Add sigmoid to output probability [0, 1]
         ).to(device)
         
-        print("✅ Enhanced MADM with Cross-Modal Attention loaded!")
+        print("Enhanced MADM with Cross-Modal Attention loaded!")
     
     def extract_visual_features(self, frames, return_per_frame=False):
         """Extract CLIP features from frames (same as original)."""

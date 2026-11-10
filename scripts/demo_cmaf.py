@@ -51,14 +51,14 @@ class CMAPModelDemo:
         print("\n" + "="*80)
         print("CMAF-ENHANCED EXVAD MODEL DEMO")
         print("="*80)
-        print(f"\n📅 Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"🖥️  Device: {self.device}")
+        print(f"\nDate: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f" Device: {self.device}")
         
         if torch.cuda.is_available():
-            print(f"🎮 GPU: {torch.cuda.get_device_name(0)}")
-            print(f"💾 GPU Memory: {torch.cuda.get_device_properties(0).total_memory // 1024**3} GB")
+            print(f"GPU: {torch.cuda.get_device_name(0)}")
+            print(f"GPU Memory: {torch.cuda.get_device_properties(0).total_memory // 1024**3} GB")
         
-        print(f"\n📦 Loading model from: {self.model_path}")
+        print(f"\nLoading model from: {self.model_path}")
         
         self.model = EnhancedExVADModel(self.device)
         
@@ -70,11 +70,11 @@ class CMAPModelDemo:
             if isinstance(checkpoint, dict):
                 if 'architecture' in checkpoint:
                     is_cmaf_model = 'CMAF' in checkpoint.get('architecture', '')
-                    print(f"📋 Architecture: {checkpoint['architecture']}")
+                    print(f"Architecture: {checkpoint['architecture']}")
                 if 'epoch' in checkpoint:
-                    print(f"📈 Epoch: {checkpoint['epoch']}")
+                    print(f"Epoch: {checkpoint['epoch']}")
                 if 'best_accuracy' in checkpoint:
-                    print(f"🎯 Training Accuracy: {checkpoint['best_accuracy']:.4f}")
+                    print(f"Training Accuracy: {checkpoint['best_accuracy']:.4f}")
                 
                 # Load state dict
                 if 'model_state_dict' in checkpoint:
@@ -84,7 +84,7 @@ class CMAPModelDemo:
             else:
                 # Old model format
                 self.model.load_state_dict(checkpoint, strict=False)
-                print("⚠️  OLD model format detected (no CMAF training metadata)")
+                print(" OLD model format detected (no CMAF training metadata)")
                 
                 # Verify CMAF components
                 state_keys = list(checkpoint.keys())
@@ -92,18 +92,18 @@ class CMAPModelDemo:
                 is_cmaf_model = has_cmaf
                 
                 if not is_cmaf_model:
-                    print("❌ WARNING: Model lacks CMAF components!")
+                    print("WARNING: Model lacks CMAF components!")
                     print("   Train with: python src/train_enhanced.py")
             
             if is_cmaf_model:
-                print("✅ CMAF-Enhanced model loaded!")
+                print("CMAF-Enhanced model loaded!")
             else:
-                print("⚠️  Model loaded (OLD architecture)")
+                print(" Model loaded (OLD architecture)")
         else:
-            print("⚠️  Warning: No trained model found, using untrained model")
+            print(" Warning: No trained model found, using untrained model")
         
         self.model.eval()
-        print(f"🎯 Detection threshold: {self.optimal_threshold}")
+        print(f"Detection threshold: {self.optimal_threshold}")
     
     def get_videos_from_category(self, category, num_videos=3):
         """Collect sample descriptors (video files or frame sequences) for a category"""
@@ -194,7 +194,7 @@ class CMAPModelDemo:
                 frame = Image.open(frame_path).convert('RGB')
                 frames.append(frame)
             except Exception as exc:
-                print(f"   ❌ Error loading frame {frame_path}: {exc}")
+                print(f"   Error loading frame {frame_path}: {exc}")
                 break
 
         if not frames:
@@ -216,7 +216,7 @@ class CMAPModelDemo:
             elif sample['type'] == 'frame_sequence':
                 frames = self._load_frame_sequence(sample['category_path'], sample['frame_files'], num_frames=16)
             else:
-                print(f"   ❌ Unsupported sample type: {sample['type']}")
+                print(f"   Unsupported sample type: {sample['type']}")
                 return None
 
             frames_tensor = frames_to_tensor(frames, self.device).unsqueeze(0)
@@ -242,7 +242,7 @@ class CMAPModelDemo:
             }
 
         except Exception as e:
-            print(f"   ❌ Error: {e}")
+            print(f"   Error: {e}")
             import traceback
             traceback.print_exc()
             return None
@@ -264,19 +264,19 @@ class CMAPModelDemo:
         
         for category, info in self.categories.items():
             print(f"\n{'='*80}")
-            print(f"📂 Category: {category.upper()}")
-            print(f"📝 Description: {info['description']}")
-            print(f"🎯 Expected: {info['expected'].upper()}")
+            print(f"Category: {category.upper()}")
+            print(f"Description: {info['description']}")
+            print(f"Expected: {info['expected'].upper()}")
             print(f"{'='*80}")
             
             # Get multiple videos from category
             samples = self.get_videos_from_category(category, videos_per_category)
             
             if not samples:
-                print(f"⚠️  No videos or frame sequences found in {category}, skipping...")
+                print(f" No videos or frame sequences found in {category}, skipping...")
                 continue
             
-            print(f"📹 Testing {len(samples)} sample(s) from {category}...")
+            print(f"Testing {len(samples)} sample(s) from {category}...")
             
             category_correct = 0
             category_total = 0
@@ -284,7 +284,7 @@ class CMAPModelDemo:
             # Test each video in the category
             for idx, sample in enumerate(samples, 1):
                 display_name = sample.get('display_name', os.path.basename(sample.get('path', 'sample')))
-                print(f"\n  🎥 Sample {idx}/{len(samples)}: {display_name}")
+                print(f"\n  Sample {idx}/{len(samples)}: {display_name}")
                 
                 # Test the video
                 result = self.test_video(sample, info)
@@ -300,16 +300,16 @@ class CMAPModelDemo:
                 
                 # Display results
                 print(f"     Score: {result['anomaly_score']:.4f}")
-                print(f"     Predicted: {'⚠️  ANOMALY' if result['predicted_label'] == 1 else '✅ NORMAL'}")
-                print(f"     Expected: {'⚠️  ANOMALY' if result['expected_label'] == 1 else '✅ NORMAL'}")
+                print(f"     Predicted: {' ANOMALY' if result['predicted_label'] == 1 else 'NORMAL'}")
+                print(f"     Expected: {' ANOMALY' if result['expected_label'] == 1 else 'NORMAL'}")
                 
                 # Check correctness
                 if result['is_correct']:
-                    print(f"     Result: ✅ CORRECT")
+                    print(f"     Result: CORRECT")
                     total_correct += 1
                     category_correct += 1
                 else:
-                    print(f"     Result: ❌ INCORRECT")
+                    print(f"     Result: INCORRECT")
                 
                 total_tested += 1
                 category_total += 1
@@ -325,7 +325,7 @@ class CMAPModelDemo:
                         anomaly_correct += 1
                 
                 # Display explanation (compact format)
-                print(f"     💬 {result['explanation'][:80]}...")
+                print(f"     {result['explanation'][:80]}...")
             
             # Category summary
             if category_total > 0:
@@ -353,20 +353,20 @@ class CMAPModelDemo:
         
         if total_tested > 0:
             overall_accuracy = (total_correct / total_tested) * 100
-            print(f"\n🎯 Overall Accuracy: {overall_accuracy:.2f}% ({total_correct}/{total_tested})")
+            print(f"\nOverall Accuracy: {overall_accuracy:.2f}% ({total_correct}/{total_tested})")
         else:
-            print("\n⚠️  No videos were tested")
+            print("\n No videos were tested")
             return
         
         # Normal videos accuracy
         if normal_total > 0:
             normal_accuracy = (normal_correct / normal_total) * 100
-            print(f"\n✅ Normal Videos Accuracy: {normal_accuracy:.2f}% ({normal_correct}/{normal_total})")
+            print(f"\nNormal Videos Accuracy: {normal_accuracy:.2f}% ({normal_correct}/{normal_total})")
         
         # Anomaly videos accuracy
         if anomaly_total > 0:
             anomaly_accuracy = (anomaly_correct / anomaly_total) * 100
-            print(f"⚠️  Anomaly Videos Accuracy: {anomaly_accuracy:.2f}% ({anomaly_correct}/{anomaly_total})")
+            print(f" Anomaly Videos Accuracy: {anomaly_accuracy:.2f}% ({anomaly_correct}/{anomaly_total})")
         
         # Calculate precision, recall, F1
         true_positives = sum(1 for r in self.results if r['predicted_label'] == 1 and r['expected_label'] == 1)
@@ -376,28 +376,28 @@ class CMAPModelDemo:
         
         if true_positives + false_positives > 0:
             precision = true_positives / (true_positives + false_positives)
-            print(f"\n📈 Precision: {precision:.4f}")
+            print(f"\nPrecision: {precision:.4f}")
         
         if true_positives + false_negatives > 0:
             recall = true_positives / (true_positives + false_negatives)
-            print(f"📈 Recall: {recall:.4f}")
+            print(f"Recall: {recall:.4f}")
         
         if true_positives + false_positives > 0 and true_positives + false_negatives > 0:
             precision = true_positives / (true_positives + false_positives)
             recall = true_positives / (true_positives + false_negatives)
             if precision + recall > 0:
                 f1_score = 2 * (precision * recall) / (precision + recall)
-                print(f"📈 F1 Score: {f1_score:.4f}")
+                print(f"F1 Score: {f1_score:.4f}")
         
         # Confusion matrix
-        print(f"\n📊 Confusion Matrix:")
+        print(f"\nConfusion Matrix:")
         print(f"   True Positives (Anomaly detected correctly): {true_positives}")
         print(f"   True Negatives (Normal detected correctly): {true_negatives}")
         print(f"   False Positives (Normal classified as Anomaly): {false_positives}")
         print(f"   False Negatives (Anomaly classified as Normal): {false_negatives}")
         
         # Per-category breakdown
-        print(f"\n📋 Per-Category Results:")
+        print(f"\nPer-Category Results:")
         print(f"{'Category':<20} {'Score':<10} {'Predicted':<12} {'Expected':<12} {'Result':<10}")
         print("-" * 80)
         
@@ -406,7 +406,7 @@ class CMAPModelDemo:
             score = result['anomaly_score']
             predicted = 'ANOMALY' if result['predicted_label'] == 1 else 'NORMAL'
             expected = 'ANOMALY' if result['expected_label'] == 1 else 'NORMAL'
-            status = '✅ CORRECT' if result['is_correct'] else '❌ WRONG'
+            status = 'CORRECT' if result['is_correct'] else 'WRONG'
             
             print(f"{category:<20} {score:<10.4f} {predicted:<12} {expected:<12} {status:<10}")
     
@@ -448,7 +448,7 @@ class CMAPModelDemo:
         with open(output_file, 'w') as f:
             json.dump(output_data, f, indent=2)
         
-        print(f"\n💾 Results saved to: {output_file}")
+        print(f"\nResults saved to: {output_file}")
     
     def generate_visualization(self):
         """Generate visualization of results"""
@@ -569,7 +569,7 @@ class CMAPModelDemo:
         # Save figure
         output_file = "outputs/demo_visualization.png"
         plt.savefig(output_file, dpi=300, bbox_inches='tight')
-        print(f"📊 Visualization saved to: {output_file}")
+        print(f"Visualization saved to: {output_file}")
         
         plt.close()
 
@@ -585,7 +585,7 @@ def main():
         except:
             print(f"Invalid argument, using default: {videos_per_category} videos per category")
     
-    print(f"\n🎬 Testing {videos_per_category} video(s) per category...")
+    print(f"\nTesting {videos_per_category} video(s) per category...")
     
     demo = CMAPModelDemo(
         model_path="models_saved/best_model.pth",
@@ -596,7 +596,7 @@ def main():
     demo.run_demo(videos_per_category=videos_per_category)
     
     print("\n" + "="*80)
-    print("DEMO COMPLETED SUCCESSFULLY! 🎉")
+    print("DEMO COMPLETED SUCCESSFULLY! ")
     print("="*80 + "\n")
 
 if __name__ == "__main__":

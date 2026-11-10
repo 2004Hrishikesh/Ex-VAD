@@ -33,9 +33,9 @@ class TemporalEnhancedExVAD(nn.Module):
     - Motion encoding for dynamic pattern detection
     
     Architecture:
-        Frames → CLIP (per-frame) → Temporal Encoder → Temporal Features
-              → BLIP (captions) → Cross-Modal Fusion → CMAF Features
-              → Fusion → Final Anomaly Score + Explanation
+        Frames -> CLIP (per-frame) -> Temporal Encoder -> Temporal Features
+              -> BLIP (captions) -> Cross-Modal Fusion -> CMAF Features
+              -> Fusion -> Final Anomaly Score + Explanation
     """
     
     def __init__(self,
@@ -112,7 +112,7 @@ class TemporalEnhancedExVAD(nn.Module):
         
         # Move to device
         self.to(device)
-        print(f"✅ Temporal-Enhanced ExVAD initialized on {device}")
+        print(f"Temporal-Enhanced ExVAD initialized on {device}")
         
     def _freeze_base_model(self):
         """Freeze base CMAF model parameters"""
@@ -343,7 +343,7 @@ def test_temporal_enhanced_model():
     with torch.no_grad():
         score, explanation, captions, details = model(dummy_frames, return_details=True)
     
-    print(f"\n📊 Results:")
+    print(f"\nResults:")
     print(f"   Combined Score: {score.item():.4f}")
     print(f"   Base Score: {details['base_score'].item():.4f}")
     print(f"   Temporal Score: {details['temporal_score'].item():.4f}")
@@ -359,11 +359,11 @@ def test_temporal_enhanced_model():
     # Parameter count
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f"\n📈 Parameters:")
+    print(f"\nParameters:")
     print(f"   Total: {total_params:,}")
     print(f"   Trainable: {trainable_params:,}")
     
-    print("\n✅ Temporal-Enhanced Model test complete!")
+    print("\nTemporal-Enhanced Model test complete!")
 
 
 if __name__ == "__main__":

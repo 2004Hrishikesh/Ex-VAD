@@ -58,9 +58,9 @@ class CMafEvaluator:
                 self.model_cmaf.load_state_dict(checkpoint['model_state_dict'])
             else:
                 self.model_cmaf.load_state_dict(checkpoint)
-            print(f"✅ Loaded model from {model_path}")
+            print(f"Loaded model from {model_path}")
         else:
-            print(f"⚠️ Model file not found: {model_path}")
+            print(f"Model file not found: {model_path}")
             print("Using untrained model for demonstration purposes")
         
         self.model_cmaf.eval()
@@ -241,7 +241,7 @@ class CMafEvaluator:
         output_dir = Path('outputs')
         output_dir.mkdir(exist_ok=True)
         df.to_csv(output_dir / 'overall_comparison.csv', index=False)
-        print(f"\n✅ Saved to outputs/overall_comparison.csv")
+        print(f"\nSaved to outputs/overall_comparison.csv")
         
         return df
     
@@ -275,7 +275,7 @@ class CMafEvaluator:
         
         # Save to CSV
         df.to_csv('outputs/category_comparison.csv', index=False)
-        print(f"\n✅ Saved to outputs/category_comparison.csv")
+        print(f"\nSaved to outputs/category_comparison.csv")
         
         return df
     
@@ -312,7 +312,7 @@ class CMafEvaluator:
         
         plt.tight_layout()
         plt.savefig('outputs/roc_comparison.png', dpi=300, bbox_inches='tight')
-        print("✅ Saved to outputs/roc_comparison.png")
+        print("Saved to outputs/roc_comparison.png")
         plt.close()
     
     def plot_category_comparison(self):
@@ -349,7 +349,7 @@ class CMafEvaluator:
         
         plt.tight_layout()
         plt.savefig('outputs/category_comparison.png', dpi=300, bbox_inches='tight')
-        print("✅ Saved to outputs/category_comparison.png")
+        print("Saved to outputs/category_comparison.png")
         plt.close()
     
     def save_results_json(self):
@@ -382,7 +382,7 @@ class CMafEvaluator:
         with open('outputs/evaluation_results.json', 'w') as f:
             json.dump(results_serializable, f, indent=2)
         
-        print("✅ Saved to outputs/evaluation_results.json")
+        print("Saved to outputs/evaluation_results.json")
 
 
 def main():
@@ -410,9 +410,9 @@ def main():
             num_frames=16,
             num_workers=0
         )
-        print(f"✅ Test set loaded: {len(test_loader)} batches")
+        print(f"Test set loaded: {len(test_loader)} batches")
     except Exception as e:
-        print(f"❌ Error loading data: {e}")
+        print(f"Error loading data: {e}")
         print("\nGenerating synthetic results for demonstration...")
         # Generate synthetic results
         evaluator.results = generate_synthetic_results()
@@ -431,7 +431,7 @@ def main():
     evaluator.save_results_json()
     
     print("\n" + "="*60)
-    print("✅ EVALUATION COMPLETE!")
+    print("EVALUATION COMPLETE!")
     print("="*60)
     print("\nGenerated files:")
     print("  - outputs/overall_comparison.csv")

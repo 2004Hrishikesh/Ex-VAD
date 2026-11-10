@@ -257,7 +257,7 @@ class EnhancedTemporalMADM(nn.Module):
             nn.Linear(128, 1)
         ).to(device)
         
-        print("✅ Enhanced Temporal MADM with TCMA loaded!")
+        print("Enhanced Temporal MADM with TCMA loaded!")
     
     def extract_temporal_visual_features(self, frame_sequences):
         """
@@ -400,5 +400,5 @@ if __name__ == "__main__":
     # Create enhanced temporal model
     temporal_model = EnhancedTemporalMADM(device=device, temporal_len=16)
     
-    print("✅ Temporal Cross-Modal Attention model initialized!")
-    print("🎯 Novel contribution ready for IEEE TPAMI/CVPR submission!")
+    print("Temporal Cross-Modal Attention model initialized!")
+    print("Novel contribution ready for IEEE TPAMI/CVPR submission!")

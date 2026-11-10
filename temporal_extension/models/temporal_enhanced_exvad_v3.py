@@ -233,7 +233,7 @@ class TemporalEnhancedExVADv3(nn.Module):
             self._freeze_base_model()
         
         self.to(device)
-        print(f"✅ Temporal-Enhanced ExVAD V3 initialized on {device}")
+        print(f"Temporal-Enhanced ExVAD V3 initialized on {device}")
         
         # Count parameters
         total = sum(p.numel() for p in self.parameters())
@@ -470,7 +470,7 @@ class TemporalEnhancedExVADv3(nn.Module):
                              components: dict) -> str:
         """Add temporal context to explanation"""
         if temporal_score > 0.7:
-            prefix = "⚠️ Strong temporal anomaly detected. "
+            prefix = "Strong temporal anomaly detected. "
         elif temporal_score > 0.5:
             prefix = "⚡ Moderate temporal irregularity. "
         else:
@@ -612,7 +612,7 @@ def test_temporal_v3():
     print(f"Variance Loss: {losses['variance'].item():.4f}")
     print(f"Contrastive Loss: {losses['contrastive'].item():.4f}")
     
-    print("\n✅ V3 Model test complete!")
+    print("\nV3 Model test complete!")
 
 
 if __name__ == "__main__":
