@@ -1,42 +1,45 @@
-# Temporal extension (follow-up work, not in the published paper)
+# Temporal extension
 
-CMAF scores a video from mean-pooled frame features, which throws away the order of events. Shoplifting (approach, conceal, leave) and fights (contact, escalation) are sequences. This module adds a temporal branch next to the CMAF model and corrects its score only when the temporal evidence is decisive.
+CMAF averages the frame features of a video, so it cannot tell in what order things happened. Many UCF-Crime classes are sequences, like shoplifting (approach, conceal, leave) or a fight that escalates. This branch models the frame order and corrects the CMAF score when it has strong evidence.
 
-## Design
+## Model
 
-- **Shared input:** the same per-frame CLIP features CMAF already computes (16 x 512), so there is no extra feature-extraction cost.
-- **Three encoders in parallel** ([`models/temporal_modeling.py`](models/temporal_modeling.py)):
-  - Temporal Transformer (2 layers, 4 heads, sinusoidal positions, attention pooling) for long-range structure
-  - BiLSTM (2 layers, 128 per direction) for direction of events
-  - Motion encoder: frame-to-frame feature differences -> MLP -> BiLSTM, for short bursts
-- **Confidence-gated fusion** ([`models/temporal_enhanced_exvad_v3.py`](models/temporal_enhanced_exvad_v3.py)):
-  - boost the CMAF score when it is low but the temporal score is > 0.70
-  - suppress it when it is high but the temporal score is < 0.30
-  - otherwise leave it unchanged
-  - fusion strength `alpha = 0.1 + 0.4 * sigmoid(theta)` is learned
-- **Loss:** BCE with label smoothing, plus a feature-variance regularizer and a class-mean contrastive margin.
-- **Training:** stage 1 trains the temporal branch with CMAF frozen. Stage 2 (from epoch 8) also fine-tunes a few CMAF adaptation layers at a lower learning rate.
+- **Input:** the same 16 x 512 per-frame CLIP features CMAF already computes.
+- **Encoders** (`models/temporal_modeling.py`):
+  - Transformer: 2 layers, 4 heads, sinusoidal positions, attention pooling
+  - BiLSTM: 2 layers, 128 units per direction
+  - Motion encoder: differences between consecutive frame features, an MLP, then a BiLSTM
+- **Fusion** (`models/temporal_enhanced_exvad_v3.py`):
+  - the encoder outputs are normalized, concatenated and scored
+  - if the CMAF score is low and the temporal score is above 0.70, the score is raised
+  - if the CMAF score is high and the temporal score is below 0.30, it is lowered
+  - otherwise it is left unchanged
+  - the correction strength is learned and stays between 0.1 and 0.5
+- **Loss:** BCE with label smoothing, a feature-variance term and a contrastive margin between class means.
+- **Training:** the temporal branch is trained first with CMAF frozen. A few CMAF projection layers are unfrozen from epoch 8 at a lower learning rate.
 
-## Results (UCF-Crime test split, 290 videos)
+## Results
 
-Recomputed from saved per-video scores in [`results/per_video_scores_test290.json`](results/per_video_scores_test290.json).
+UCF-Crime test split, 290 videos. Per-video scores are in `results/per_video_scores_test290.json`.
 
 | Model | Accuracy | Precision | Recall | F1 | AUC-ROC | False alarms |
 |---|---:|---:|---:|---:|---:|---:|
 | ExVAD + CMAF | 0.828 | 0.781 | 0.893 | 0.833 | 0.909 | 35 |
-| **+ Temporal (V5)** | **0.862** | **0.862** | 0.850 | **0.856** | **0.914** | **19** |
-| + Temporal, frames shuffled | 0.852 | - | - | - | 0.908 | 21 |
+| + Temporal | 0.862 | 0.862 | 0.850 | 0.856 | 0.914 | 19 |
+| + Temporal, frames shuffled | 0.852 | | | | 0.908 | 21 |
 
-- False alarms drop by 45.7% (35 -> 19). Most of that comes from the suppress gate.
-- Shuffling frame order costs about 1 accuracy point, so the branch does use ordering.
-- Encoder and gating ablations are in [`results/tables/`](results/tables/).
-- The decision threshold (0.44) and the checkpoint epoch were selected on the test split.
+- **False alarms:** they drop from 35 to 19, mostly because of the lowering rule.
+- **Frame order:** shuffling the frames costs 1 point of accuracy.
+- **Low threshold:** at a threshold of 0.025 the same checkpoint reaches 95% recall.
+- **Selection:** the 0.44 threshold and the checkpoint epoch were picked on this split.
+- **Ablations:** encoder and gating ablations are in `results/tables/`.
 
-## Run (from the repository root)
+## Usage
+
+Run from the repository root:
 
 ```bash
 python temporal_extension/train_temporal_v5.py --init_checkpoint models_saved/<checkpoint>.pth
-python temporal_extension/scripts/evaluate_temporal.py --checkpoint models_saved/temporal_v5_high_eff.pth \
-    --threshold-file models_saved/temporal_v5_high_eff_threshold.json
+python temporal_extension/scripts/evaluate_temporal.py --checkpoint models_saved/temporal_v5_high_eff.pth --threshold-file models_saved/temporal_v5_high_eff_threshold.json
 python temporal_extension/scripts/run_paper_ablation.py --checkpoint models_saved/temporal_v5_high_eff.pth
 ```

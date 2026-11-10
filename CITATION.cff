@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this code, please cite the paper below."
+message: "Please cite the paper if you use this code."
 title: "Explainable Video Anomaly Detection with Cross-Modal Attention Fusion"
 authors:
   - family-names: Muniraju

@@ -1,82 +1,71 @@
-# Explainable Video Anomaly Detection with Cross-Modal Attention Fusion (CMAF)
+# ExVAD + CMAF: Explainable Video Anomaly Detection
 
-Code for the paper **"Enhancing Explainable Video Anomaly Detection using Cross-Modal Attention Fusion Mechanism"**, Hrishikesh Muniraju and Sridhar Raj S, IConSCEPT 2025 (IEEE). [IEEE Xplore](https://ieeexplore.ieee.org/document/11436826)
+Code for my paper [Enhancing Explainable Video Anomaly Detection using Cross-Modal Attention Fusion Mechanism](https://ieeexplore.ieee.org/document/11436826) (Hrishikesh Muniraju, Sridhar Raj S), IEEE IConSCEPT 2025.
 
-The model flags anomalous surveillance videos (UCF-Crime) and explains why. It also writes a short caption of what happens in the clip.
+The model flags anomalous surveillance videos from UCF-Crime and gives a short caption of what is happening as the explanation.
 
 ![CMAF architecture](assets/cmaf_architecture.png)
 
-## Idea
+## Method
 
-Visual features alone miss context. A frame of two people close together looks the same whether they are talking or fighting. CMAF adds a language view of the scene and lets the two views attend to each other:
-
-1. **Visual branch:** CLIP ViT-B/32 features for 16 uniformly sampled frames, mean-pooled to 512-d.
-2. **Text branch:** BLIP writes captions for the frames. DistilBERT encodes the caption ([CLS], 768-d).
-3. **Cross-modal attention fusion** ([`src/models/cross_modal_attention.py`](src/models/cross_modal_attention.py)):
-   - both modalities are projected to a shared 512-d space
-   - 8-head attention runs in both directions (visual -> text and text -> visual)
-   - a learned sigmoid gate decides, per dimension, how much to trust each direction
-   - a residual connection adds the fused vector back onto the original CLIP feature, so the baseline signal is never lost
-4. **Anomaly head:** a small MLP gives the anomaly score. The caption is returned with the score as the explanation.
+- CLIP ViT-B/32 encodes 16 frames per video. The frame features are averaged into one 512-d vector.
+- BLIP captions the frames, and DistilBERT encodes the caption (768-d).
+- CMAF (`src/models/cross_modal_attention.py`) does the fusion:
+  - it projects both vectors to 512-d
+  - it runs 8-head attention in both directions, visual to text and text to visual
+  - it mixes the two results with a learned sigmoid gate
+  - it adds the result back to the CLIP feature as a residual
+- A small MLP head gives the anomaly score.
 
 ## Results
 
-All numbers below are recomputed from the saved per-video scores in [`results/cmaf_per_video_scores_test290.json`](results/cmaf_per_video_scores_test290.json). Anyone can check them without re-running the model. The test set is the UCF-Crime test split: 290 videos (150 normal, 140 anomalous), with video-level labels.
+UCF-Crime test split, 290 videos (150 normal, 140 anomalous), video-level labels:
 
 | Model | Accuracy | Precision | Recall | F1 | AUC-ROC | Missed anomalies |
 |---|---:|---:|---:|---:|---:|---:|
-| ExVAD baseline (CLIP + BLIP, no fusion) | 0.807 | 0.792 | 0.814 | 0.803 | 0.898 | 26 |
-| **ExVAD + CMAF** | **0.828** | 0.781 | **0.893** | **0.833** | **0.909** | **15** |
+| ExVAD baseline | 0.807 | 0.792 | 0.814 | 0.803 | 0.898 | 26 |
+| ExVAD + CMAF | 0.828 | 0.781 | 0.893 | 0.833 | 0.909 | 15 |
 
-- CMAF catches 11 more anomalous videos than the baseline (missed anomalies drop from 26 to 15). The cost is 5 more false alarms.
-- The biggest per-class gains are on Shoplifting (16 -> 19 of 21), Burglary (11 -> 13 of 13) and Shooting (19 -> 21 of 23). These are classes where context matters more than appearance. See [`results/tables/cmaf_test290_per_category.csv`](results/tables/cmaf_test290_per_category.csv).
-- The paper reports 85.7% with a +7.5 point gain over the baseline, from the evaluation run at the time of publication. The table above is from the checkpoint in this repository.
-- The CMAF decision threshold (0.149) was tuned on this test split, and the baseline uses 0.5.
-
-## Repository layout
-
-```
-src/
-  models/
-    aegm.py                   BLIP caption / explanation generator
-    madm.py                   CLIP-based anomaly scorer (baseline)
-    exvad_model.py            baseline ExVAD (AEGM + MADM)
-    cross_modal_attention.py  CMAF module + enhanced scorer   <- main contribution
-    enhanced_exvad_model.py   ExVAD + CMAF
-  utils/                      data loading, frame sampling, metrics, threshold tuning
-  train.py                    train the baseline
-  train_enhanced.py           train ExVAD + CMAF
-  evaluate_cmaf_comprehensive.py   baseline vs CMAF evaluation
-scripts/                      demo, attention visualization, evaluation helpers
-notebooks/                    Kaggle notebook version of the full pipeline
-results/                      per-video scores and metric tables
-temporal_extension/           follow-up work, not part of the paper (see its README)
-```
-
-## Running
-
-```bash
-pip install -r requirements.txt
-# UCF-Crime frames: data/Train/<Class>/*.png and data/Test/<Class>/*.png (not included)
-
-python -m src.train                          # baseline
-cd src && python train_enhanced.py && cd ..  # ExVAD + CMAF (settings in the __main__ block)
-python -m src.evaluate_cmaf_comprehensive    # evaluation
-python scripts/demo_cmaf.py                  # demo with captions as explanations
-```
-
-Model checkpoints are about 1.5 GB because they include the CLIP, BLIP and DistilBERT weights, so they are not stored in git.
+- **Detections:** CMAF catches 11 more anomalous videos than the baseline, with 5 more false alarms.
+- **Per class:** the largest gains are on Shoplifting (16 to 19 of 21), Burglary (11 to 13 of 13) and Shooting (19 to 21 of 23).
+- **Thresholds:** CMAF uses a threshold of 0.149, tuned on this split. The baseline uses 0.5.
+- **Saved outputs:** the per-video scores and tables are in `results/`.
+- **Paper numbers:** the paper reports 85.7% (+7.5 over the baseline) from the evaluation at publication time.
 
 ## Temporal extension
 
-CMAF averages frame features, so it ignores the order of events. [`temporal_extension/`](temporal_extension/) adds a temporal branch (Transformer + BiLSTM + motion encoder) next to CMAF and a confidence-gated rule that corrects the CMAF score only when the temporal evidence is decisive.
+`temporal_extension/` adds a temporal branch (Transformer, BiLSTM and a frame-difference motion encoder) and a confidence-gated rule. The rule only changes the CMAF score when the temporal branch is confident. This part is not in the paper.
 
 | Model | Accuracy | F1 | False alarms |
 |---|---:|---:|---:|
 | ExVAD + CMAF | 0.828 | 0.833 | 35 |
-| + Temporal | **0.862** | **0.856** | **19** |
+| + Temporal | 0.862 | 0.856 | 19 |
 
-This part is not in the published paper.
+## Repository
+
+```
+src/models/            aegm.py (BLIP), madm.py (CLIP baseline), cross_modal_attention.py (CMAF), enhanced_exvad_model.py
+src/utils/             data loading, frame sampling, metrics, threshold tuning
+src/train.py           baseline training
+src/train_enhanced.py  CMAF training
+src/evaluate_cmaf_comprehensive.py
+scripts/               demo and attention visualization
+notebooks/             Kaggle notebook
+results/               per-video scores and metric tables
+temporal_extension/    temporal branch
+```
+
+## Usage
+
+```bash
+pip install -r requirements.txt
+python -m src.train
+cd src && python train_enhanced.py
+python -m src.evaluate_cmaf_comprehensive
+python scripts/demo_cmaf.py
+```
+
+UCF-Crime frames go in `data/Train/<Class>/` and `data/Test/<Class>/`. The dataset and model checkpoints are not included.
 
 ## Citation
 
@@ -90,8 +79,3 @@ This part is not in the published paper.
   url       = {https://ieeexplore.ieee.org/document/11436826}
 }
 ```
-
-## Author
-
-**Hrishikesh Muniraju** (first author): implemented and trained the CMAF module and ran the evaluations. Now an MS CS student at UMass Amherst.
-Co-author and advisor: Sridhar Raj S, School of Computer Science and Engineering, VIT Vellore.
