@@ -1,0 +1,6 @@
+# Lightweight dependencies for CI (evaluation tests and linting, no GPU or model downloads)
+numpy==1.26.4
+scikit-learn==1.4.2
+matplotlib==3.8.4
+pytest==8.1.1
+ruff==0.4.4

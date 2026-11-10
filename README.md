@@ -32,6 +32,20 @@ UCF-Crime test split, 290 videos (150 normal, 140 anomalous), video-level labels
 - **Saved outputs:** the per-video scores and tables are in `results/`.
 - **Paper numbers:** the paper reports 85.7% (+7.5 over the baseline) from the evaluation at publication time.
 
+### Reproducing the numbers
+
+All metrics above can be recomputed from the saved scores without the dataset or a GPU:
+
+```bash
+pip install -r requirements-ci.txt
+python -m src.evaluation.report results/cmaf_per_video_scores_test290.json --out results/report
+pytest
+```
+
+- **Report output:** a metrics table, a JSON file and an ROC curve.
+- **Tests:** `tests/test_report.py` checks that the numbers in this README match the saved scores.
+- **CI:** GitHub Actions runs the checks and linting on every push.
+
 ## Temporal extension
 
 `temporal_extension/` adds a temporal branch (Transformer, BiLSTM and a frame-difference motion encoder) and a confidence-gated rule. The rule only changes the CMAF score when the temporal branch is confident. This part is not in the paper.
@@ -49,6 +63,8 @@ src/utils/             data loading, frame sampling, metrics, threshold tuning
 src/train.py           baseline training
 src/train_enhanced.py  CMAF training
 src/evaluate_cmaf_comprehensive.py
+src/evaluation/report.py  metrics, per-class results and ROC from saved scores
+tests/                 pytest checks for the reported numbers
 scripts/               demo and attention visualization
 notebooks/             Kaggle notebook
 results/               per-video scores and metric tables
